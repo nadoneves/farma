@@ -1,0 +1,150 @@
+/* Barrinha que suporta o menu (SUP) */
+#sup {
+	background:			url('../imagens/layout/menu.png');
+	background-position:0px -90px; /*-90px Azul / -150px verde */
+	width:				auto;
+	height:				30px;
+	margin:				0px 0px 0px 0px;
+	padding:			0;
+	border:				0;
+	list-style:			none;
+	text-align:			left;
+	display:			block;
+}
+
+/* Reset */
+* { margin: 0; padding: 0; font-size: 100%; }
+
+ul#navmenu-h {
+	position:			relative;
+	margin:				0;
+	padding:			0;
+	border:				0;
+	list-style:			none;
+	z-index:			7;
+}
+ul#navmenu-h ul {
+	position:			absolute;
+	top:				100%;
+	left:				0;
+	width:				180px;/* Sub Menu Width */
+	margin:				0;
+	padding:			0;
+	border-top:			1px solid #FFF;
+	list-style:			none;
+	display:			none;
+}
+ul#navmenu-h ul ul,ul#navmenu-h ul ul ul {
+	top:				0;
+	left:				100%;
+}
+ul#navmenu-h li {
+	position:			relative;
+	float:				left;
+	display:			inline;
+}
+ul#navmenu-h ul li {
+	width:				100%;
+}
+
+/* cor dos submenus */
+ul#navmenu-h a,
+ul#navmenu-h a.sist,
+ul#navmenu-h a.main ,
+ul#navmenu-h a.sair,
+ul#navmenu-h li:hover li a,
+ul#navmenu-h li.iehover li a,
+ul#navmenu-h li:hover li:hover li a,
+ul#navmenu-h li.iehover li.iehover li a,
+ul#navmenu-h li:hover li:hover li:hover li a,
+ul#navmenu-h li.iehover li.iehover li.iehover li a {
+	background:			url('../imagens/layout/menu.png');
+	background-position:0px -60px; 
+}
+
+
+/* PADRAO MENU (RAIZ) */
+ul#navmenu-h a {
+	color:				#FFF;
+	height:				30px;
+	line-height:		30px;
+	font:				normal 10px tahoma, Arial, Helvetica, sans-serif;
+	text-decoration:	none;
+	text-transform:		uppercase;
+	padding:			0px 12px;
+	border:				0;
+	float:				left;
+	display:			block;
+}
+
+/* HOVER NO MENU */
+ul#navmenu-h a, ul#navmenu-h li a, ul#navmenu-h li.iehover a {
+	background:			url('../imagens/layout/menu.png');
+	background-position:0px 0px;
+}
+
+ul#navmenu-h li li a,
+ul#navmenu-h li li a,
+ul#navmenu-h li.iehover li a,
+ul#navmenu-h li.iehover li.iehover a,
+ul#navmenu-h li li li a,
+ul#navmenu-h li li li a,
+ul#navmenu-h li.iehover li.iehover li a,
+ul#navmenu-h li.iehover li.iehover li.iehover a{
+	background:			url('../imagens/layout/menu.png');
+	background-position:0px 0px;	
+}
+
+/* SEGUNDO MENU */
+ul#navmenu-h li:hover li a,
+ul#navmenu-h li.iehover li a {
+	background-position:0px -90px; /*-90px Azul / -125px verde com borda*/
+	float: none;
+}
+
+/* Função Hover - Do Not Move */
+ul#navmenu-h li:hover ul ul,
+ul#navmenu-h li:hover ul ul ul,
+ul#navmenu-h li.iehover ul ul,
+ul#navmenu-h li.iehover ul ul ul					{ display: none; }
+
+ul#navmenu-h li:hover ul,
+ul#navmenu-h ul li:hover ul,
+ul#navmenu-h ul ul li:hover ul,
+ul#navmenu-h li.iehover ul,
+ul#navmenu-h ul li.iehover ul,
+ul#navmenu-h ul ul li.iehover ul					{ display: block; }
+
+/* CENTRALIZANDO O TEXTO NA CAIXA */
+ul#navmenu-h li a {
+	line-height:		28px;
+	vertical-align:		middle;
+}
+
+/* DIFERENCIANDO OS TIPOS DE MENU COM CORES DIFERENTES */
+ul#navmenu-h a.main,
+ul#navmenu-h a.sair,
+ul#navmenu-h a.sist
+{ background: url('../imagens/layout/menu.png'); }
+
+/* MAIN MENU (bg) */
+ul#navmenu-h a.main
+{ background-position:0px -90px; } /*-90px Azul / -150px verde */
+
+/* SAIR (bg) */
+ul#navmenu-h a.sair
+{ background-position:0px -90px; }
+
+/* NOME DO SISTEMA */
+ul#navmenu-h a.sist
+{ background-position:0px -240px;	color: #333;	font-weight: bold;	padding: 0px 25px 0px 15px; }
+
+/* ÍCONES 20 x 20px do sistema (aluno) */
+ul#navmenu-h li a.sist img {
+	width:				20px;
+	height:				20px;
+	margin:				4px 8px 0px 0px;
+	padding:			0;
+	border:				0;
+	float:				left;
+}

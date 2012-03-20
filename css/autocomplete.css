@@ -1,0 +1,39 @@
+/* 
+	Document   : simpleAutoComplete
+	Created on : 14/03/2010, 13:27:12
+	Author     : Wellington Ribeiro
+	Description: Para estilizar o simpleAutoComplete e não ter problema de posicionamento no IE6,
+				 deve-se setar width e height, ou então usar um hack em div.autocomplete
+*/
+
+div.autocomplete {
+	background-color:	#FCFCFC;
+	position:			absolute;
+	width:				400px;
+	height:				auto;
+	margin:				0;
+	padding:			0;
+	border:				1px solid #CCCCCC;
+	font-family:		verdana, tahoma, arial, sans-serif;
+	font-weight:		normal;
+	font-style:			normal;
+	font-size:			10px;
+	z-index:			100;
+	text-align:			left;
+}
+div.autocomplete ul {
+	margin:				0;
+	padding-left:		0;
+	list-style:			none;
+}
+div.autocomplete ul li {
+	color:				#666666;
+	height:				25px;
+	line-height:		24px;
+	padding:			0px 8px;
+	cursor:				pointer;
+}
+div.autocomplete ul li.sel{
+	background:			#B4D5FE url('../imagens/layout/bg_autocomplete.jpg') repeat-x;
+	color:				#224466;
+}

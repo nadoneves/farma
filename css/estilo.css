@@ -1,0 +1,69 @@
+body { text-align:center; margin:0; font: normal 16px tahoma, Arial, Helvetica, sans-serif; text-transform: uppercase; }
+
+a, a:hover, a:visited { text-decoration: none; color: #000;}
+
+#container { border:0px solid red; width:1000px; height:655px; margin:0 auto; overflow: auto; }
+
+table { margin: 0 auto; }
+
+#p_natureza { border:0px solid red; width:500px; height:50px; margin:0 auto; margin-top:50px; margin-bottom: 20px; }
+.lista_natureza { text-transform: uppercase; margin:0 auto; }
+.lista_natureza td{ width:100px; }
+
+.tbl_cadProduto ,.tbl_altProduto, .tbl_entradaProd, .tbl_venda, .tbl_listaProd, .tbl_estoque { margin-top: 50px; }
+.tbl_listaProd, .tbl_estoque, .tbl_vendaD { border:2px solid #aaa; }
+.tbl_venda { margin-bottom:20px; }
+
+.tbl_vendaD thead { background: #369 url(../imagens/layout/menu.png); background-position: 0 -90px; color: #fff; }
+
+
+input { height: 25px; }
+textarea { height: 70px; }
+input, textarea, select { text-transform: uppercase; width:200px; }
+
+
+/* botoes padronizados */
+.bt_buscar		{ background: url('../imagens/layout/bt_buscar.png')		no-repeat;	width: 66px;	}
+.bt_entrar		{ background: url('../imagens/layout/bt_entrar.png')		no-repeat;	width: 66px;	}
+.bt_enviar		{ background: url('../imagens/layout/bt_enviar.png')		no-repeat;	width: 66px;	}
+.bt_fechar		{ background: url('../imagens/layout/bt_fechar.png')		no-repeat;	width: 66px;	}
+.bt_gerar		{ background: url('../imagens/layout/bt_gerar.png')			no-repeat;	width: 66px;	}
+.bt_entrar		{ background: url('../imagens/layout/bt_entrar.png')		no-repeat;	width: 66px;	}
+.bt_gravar		{ background: url('../imagens/layout/bt_gravar.png')		no-repeat;	width: 66px;	}
+.bt_imprimir	{ background: url('../imagens/layout/bt_imprimir.png')		no-repeat;	width: 66px;	}
+.bt_iniciar		{ background: url('../imagens/layout/bt_iniciar.png')		no-repeat;	width: 66px;	}
+.bt_limpar		{ background: url('../imagens/layout/bt_limpar.png')		no-repeat;	width: 66px;	}
+.bt_salvar		{ background: url('../imagens/layout/bt_salvar.png')		no-repeat;	width: 66px;	}
+.bt_voltar		{ background: url('../imagens/layout/bt_voltar.png')		no-repeat;	width: 66px;	}
+.bt_zerar		{ background: url('../imagens/layout/bt_zerar_senha.png')	no-repeat;	width: 95px;	}
+.bt_buscar,		.bt_entrar,		.bt_enviar,		.bt_fechar,
+.bt_gerar,		.bt_entrar,		.bt_gravar,		.bt_imprimir,
+.bt_iniciar,	.bt_limpar,		.bt_salvar,		.bt_voltar,
+.bt_zerar {
+	background-position:0px -24px;
+	height:				24px; 
+	padding:			0;
+	margin:				10px 6px 0 0;
+	/*display:			block;*/
+	text-indent:		-9999px;
+	border:				0;
+	cursor:				pointer;
+	/*float:				left;*/
+}
+.bt_buscar:hover,	.bt_entrar:hover,	.bt_enviar:hover,	.bt_fechar:hover,
+.bt_gerar:hover,	.bt_entrar:hover,	.bt_gravar:hover,	.bt_imprimir:hover,
+.bt_iniciar:hover,	.bt_limpar:hover,	.bt_salvar:hover,	.bt_voltar:hover,
+.bt_zerar:hover {
+	background-position:0px 0px;
+	border:				0;
+	outline:			0;
+}
+.bt_buscar:focus,	.bt_entrar:focus,	.bt_enviar:focus,	.bt_fechar:focus,
+.bt_gerar:focus,	.bt_entrar:focus,	.bt_gravar:focus,	.bt_imprimir:focus,
+.bt_iniciar:focus,	.bt_limpar:focus,	.bt_salvar:focus,	.bt_voltar:focus,
+.bt_zerar:focus {
+	background-position:0px 0px;
+	border:				0;
+	outline:			0;
+}
+
