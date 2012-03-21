@@ -8,10 +8,15 @@ $codVenda = $_GET['codVenda'];
 $query = "SELECT p.*, n.natureza, e.quantidade FROM produto p 
 			INNER JOIN natureza n ON n.idNatureza = p.idNatureza
 				INNER JOIN entrada_produto e ON e.idProduto = p.idProduto
-					WHERE p.codBarra='$codBarras'";
+					WHERE p.codBarra='$codBarras'"; //and e.quantidade > 0";
 
 $res = mysql_query($query);
 $l = mysql_fetch_array($res);
+
+# Verifica se o Produto está disponível em estoque
+if( $l['quantidade'] == '0' ){
+    echo "<script>alert('PRODUTO NAO DISPONIVEL EM ESTOQUE.');</script>";
+}else{
 #-----------------------------------------------------------------------------------------------
 
 # Verifica se o Produto ja se encontra na lista de venda
@@ -20,7 +25,6 @@ $query2 = "SELECT * FROM venda WHERE idProduto='".$l['idProduto']."' AND codVend
 $res2 = mysql_query($query2); 
 $l2 = mysql_num_rows($res2);
 $l22 = mysql_fetch_array($res2);
-#-----------------------------------------------------------------------------------------------
 
 # se sim atualiza a quantidade e o valor
 if( $l2 != 0 ){
@@ -37,6 +41,8 @@ if( $l2 != 0 ){
 	}
 }
 #-----------------------------------------------------------------------------------------------
+
+}
 
 # seleciona os produtos e exibe para montar a lista de venda
 $query4 = "SELECT p.*, n.natureza, e.quantidade, v.* FROM venda v
@@ -76,18 +82,3 @@ $carrinho .= "<input type='hidden' name='total2' value='".$aPagar."' />";
 $carrinho .= "</tr></table>";
 print $carrinho;
 #-----------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
