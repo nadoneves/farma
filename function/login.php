@@ -12,6 +12,7 @@ if( empty ($logar) ){
         header("Location: ../main/index.php?msg=useroff");
     }else{
         $_SESSION['usuario']['usuario'] = $logar->usuario;
+        $_SESSION['usuario']['nome'] = $logar->nome;
         $_SESSION['usuario']['tipo'] = $logar->tipo;
         
         switch ($logar->tipo) {

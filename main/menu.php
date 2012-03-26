@@ -2,8 +2,8 @@
 	<ul id="navmenu-h">
 		<!-- NOME DO SISTEMA -->
 		<li>
-                    <a href="index.php" class="sist">
-                        <img src="../imagens/layout/aluno.png"/>Rede Pharma - <?php echo $_SESSION['usuario']['funcao']?>
+                    <a href="home.php" class="sist">
+                        <img src="../imagens/layout/aluno.png"/>Rede Pharma - <?php echo $_SESSION['usuario']['nome']?>
                     </a>
                 </li>
 		

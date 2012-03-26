@@ -9,15 +9,24 @@ if($_POST){
 	
 	$alt = $_POST['editar'];
 
+	if( $alt == "Trocar") {
+		$alterar = $usuario->trocar( $_POST['idusuario'], $_POST['ativo'] );
+		if($alterar){
+			$msg = "ok";
+		}else{
+			$msg = "erro";
+		}
+		header('Location: alterarUsuario.php?msg='.$msg);
+	}
+
 	if( $alt == "Alterar") {
 		$alterar = $usuario->alterar( $_POST['idusuario'] );
 		if($alterar){
-			$msg = "Usuario alterado";
+			$msg = "ok";
 		}else{
-			$msg = "Erro ao alterar o Usuario";
+			$msg = "erro";
 		}
-		echo "<script>alert('".$msg."')</script>";
-		//header('Location: alterarUsuario.php');
+		header('Location: alterarUsuario.php?msg='.$msg);
 	}
 	if( $alt == "Editar") {
 		$editar = $usuario->pesquisar( $_POST['idusuario'] );
@@ -27,8 +36,29 @@ if($_POST){
 	<input type="hidden" name="idusuario" value="<?php echo $editar->idusuario ?>" />
 <table class="tbl_cadProduto">
 	<tr>
-		<td>Usu&aacute;rio</td>
+		<td>nome</td>
+		<td><input type="text" name="nome" id="nome" value="<?php echo $editar->nome ?>" /></td>
+	</tr>
+	<tr>
+		<td colspan=2>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>cpf</td>
+		<td><input type="text" name="cpf" id="cpf" style="text-transform: none;" value="<?php echo $editar->cpf ?>" disabled /></td>
+	</tr>
+	<tr>
+		<td colspan=2>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>telefone</td>
 		<td><input type="text" name="usuario" id="usuario" style="text-transform: none;" value="<?php echo $editar->usuario ?>" /></td>
+	</tr>
+	<tr>
+		<td colspan=2>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>Usu&aacute;rio</td>
+		<td><input type="text" name="telefone" id="telefone" style="text-transform: none;" value="<?php echo $editar->telefone ?>" /></td>
 	</tr>
 	<tr>
 		<td colspan=2>&nbsp;</td>
@@ -101,8 +131,128 @@ if($_POST){
 </form>
 <?php 
 
+	}
+	if ($alt=="Buscar"){
+		?>
+<style rel="stylesheet" type="text/css" media="screen">
+	.tbl_listaProd{
+		border: 0;
+		width: 900px;	
+	}
+	.tbl_listaProd tr td{
+		height: 30px;	
+	}
+	a, a:visited{ color: blue; text-decoration: underline;}
+</style><form method="post">
+	<table class='tbl_altProduto'>
+		<tr>
+                    <td>Usu&Aacute;rio&nbsp;&nbsp;</td>
+			<td>
+				<input type="text" class="pad" name="nomeUsuario" id="nomeUsuario" value="<?php echo $_POST['nomeUsuario']; ?>" autocomplete="off" />
+				<input type="submit" class="bt_buscar" name="editar" id="editar" value="Buscar" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2 align="left">
+				<input type="radio" name="ativo" value="1" checked/><label style="margin:0 -50px 0 -80px">Ativo</label>
+				<input type="radio" name="ativo" value="0" /><label style="margin:0 0px 0 -80px">Inativo</label>
+			</td>
+		</tr>
+	</table>
+</form>
+		<table class="tbl_listaProd">
+			<thead>
+				<tr>
+					<td>Nome</td>
+					<td>Usuario</td>
+					<td>Funcao</td>
+					<td>Situacao</td>
+				</tr>
+			</thead>
+			<tbody>
+				
+				<?php
+					$consultar = $usuario->consultarUsuario($_POST['nomeUsuario'],$_POST['ativo']);
+					
+					while( $consult = mysql_fetch_object( $consultar ) ){  
+                        if($consult->ativo == 1){
+                            $ativo = "Ativo";
+                            $trocar = 0;
+                        }else{
+                            $ativo = "Inativo";
+                            $trocar = 1; 
+                        }
+
+                        switch ($consult->tipo) {
+                            case "1":
+                                $tipo = "Gerente";    
+                                break;
+                            case "2":
+                                $tipo = "Estoquista";    
+                                break;
+                            case "3":
+                                $tipo = "Farmaceutico";    
+                                break;
+                            case "4":
+                                $tipo = "Balconista";    
+                                break;
+                            case "5":
+                                $tipo = "Caixa";    
+                                break;
+
+                        }      
+				?>
+				<tr>
+					<td><?php echo $consult->nome; ?></td>
+					<td>
+						<form id="formVer<?php echo $consult->idusuario; ?>" method="post" ation="#">
+							<input type="hidden" name="editar" value="Editar" />
+							<input type="hidden" name="idusuario" value="<?php echo $consult->idusuario; ?>" />
+						
+						<a href="#" onclick="ver(<?php echo $consult->idusuario; ?>)">
+							<?php echo $consult->usuario; ?>
+						</a>
+						</form>
+					</td>
+					<td><?php echo $tipo; ?></td>
+					<td>
+						<form id="formTrocar<?php echo $consult->idusuario; ?>" method="post" ation="#">
+							<input type="hidden" name="editar" value="Trocar" />
+							<input type="hidden" name="idusuario" value="<?php echo $consult->idusuario; ?>" 
+							/>
+							<input type="hidden" name="ativo" value="<?php echo $trocar; ?>" />
+
+						<a href="#" onclick="trocar(<?php echo $consult->idusuario; ?>)">
+							<?php echo $ativo; ?>
+						</a>
+						</form>
+					</td>
+				</tr>
+				<?php } ?>
+				
+			</tbody>
+		</table>
+
+
+
+
+
+		<?php
 	} 
 } else {
+
+if( $_GET ){
+	switch ($_GET['msg']) {
+		case 'ok':
+			$msg = "Usuario alterado";
+			break;
+
+		case 'erro':
+			$msg = "Erro ao alterar o Usuario";
+			break;
+	}
+	echo "<script>alert('".$msg."')</script>";
+}
 
  ?>
 <form method="post">
@@ -111,30 +261,33 @@ if($_POST){
                     <td>Usu&Aacute;rio&nbsp;&nbsp;</td>
 			<td>
 				<input type="text" class="pad" name="nomeUsuario" id="nomeUsuario" value="" autocomplete="off" />
-				<input type="hidden" class="pad" name="idusuario" id="idusuario" value="" />&nbsp;&nbsp;
-				<input type="submit" class="bt_buscar" name="editar" id="editar" value="Editar" />
+				<input type="submit" class="bt_buscar" name="editar" id="editar" value="Buscar" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2 align="left">
+				<input type="radio" name="ativo" value="1" checked/><label style="margin:0 -50px 0 -80px">Ativo</label>
+				<input type="radio" name="ativo" value="0" /><label style="margin:0 0px 0 -80px">Inativo</label>
 			</td>
 		</tr>
 	</table>
 </form>	
 <?php } ?>
+<script>
+	$(document).ready(function() {	
+		$('.tbl_listaProd thead').css('background','url(../imagens/layout/menu.png)');
+        $('.tbl_listaProd thead').css('background-position','0px -90px');
+		$('.tbl_listaProd thead').css('color','#fff');		
+		$('.tbl_listaProd tbody tr:odd').css('background','#fff');
+		$('.tbl_listaProd tbody tr:even').css('background','#bbb');
+	});
 
-<script language="javascript" type="text/javascript">
-		<!--
-			$(window).load(function() {
-				$('#nomeUsuario').simpleAutoComplete('../function/autocompleteUsuario.php',{
-					autoCompleteClassName:	'autocomplete',
-					selectedClassName:		'sel',
-					attrCallBack:			'rel',
-					identifier:				'usuario'
-				}, usuarioCallback);
-			});
-			
-			function usuarioCallback( par ) {
-				$("#idusuario")	.val( par[0] );
-			}
-		// -->
+	function ver(id){
+		$('#formVer'+id).submit();	
+	}
+
+	function trocar(id){
+		$('#formTrocar'+id).submit();	
+	}
 </script>
-
-
 <?php include 'rodape.php'; ?>

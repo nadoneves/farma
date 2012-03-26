@@ -13,6 +13,27 @@ if($_POST){
 <form method="post">
 <table class="tbl_cadProduto">
 	<tr>
+		<td>Nome</td>
+		<td><input type="text" name="nome" id="nome" /></td>
+	</tr>
+	<tr>
+		<td colspan=2>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>cpf</td>
+		<td><input type="text" name="cpf" id="cpf" /></td>
+	</tr>
+	<tr>
+		<td colspan=2>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>telefone</td>
+		<td><input type="text" name="telefone" id="telefone" /></td>
+	</tr>
+	<tr>
+		<td colspan=2>&nbsp;</td>
+	</tr>
+	<tr>
 		<td>Usu&aacute;rio</td>
 		<td><input type="text" name="usuario" id="usuario" style="text-transform: none;" /></td>
 	</tr>
@@ -64,4 +85,9 @@ if($_POST){
         </table>
 </form>
 
+<script	src="../js/jquery.maskedinput.js" type="text/javascript"></script>
+<script>
+    $('#cpf').mask('999.999.999-99');
+    $('#telefone').mask('(99) 9999-9999');
+</script>
 <?php include 'rodape.php'; ?>
