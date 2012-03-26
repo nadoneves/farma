@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tempo de Geração: Mar 20, 2012 as 04:07 PM
+-- Tempo de Geração: Mar 26, 2012 as 02:54 PM
 -- Versão do Servidor: 5.1.49
 -- Versão do PHP: 5.3.3-1ubuntu9.6
 
@@ -87,21 +87,21 @@ INSERT INTO `entrada_produto` (`idEntrada`, `idProduto`, `quantidade`) VALUES
 (4, 4, 120),
 (5, 5, 120),
 (6, 6, 2),
-(7, 7, -7),
+(7, 7, 0),
 (8, 8, 4),
 (9, 9, 2),
 (10, 10, 100),
 (11, 11, 37),
 (12, 12, 17),
 (13, 13, 4),
-(14, 14, -12),
+(14, 14, 0),
 (15, 15, 6),
 (16, 16, 5),
 (17, 17, 3),
 (18, 18, 2),
 (19, 19, 1),
 (20, 20, 4),
-(21, 21, -3),
+(21, 21, 0),
 (22, 22, 3),
 (23, 23, 5),
 (24, 24, 3),
@@ -128,7 +128,7 @@ INSERT INTO `entrada_produto` (`idEntrada`, `idProduto`, `quantidade`) VALUES
 (45, 45, 1),
 (46, 46, 3),
 (47, 47, 6),
-(48, 48, -2),
+(48, 48, 0),
 (49, 49, 4),
 (50, 50, 25),
 (51, 51, 12),
@@ -419,23 +419,27 @@ INSERT INTO `uf` (`idUF`, `sigla`) VALUES
 
 CREATE TABLE IF NOT EXISTS `usuario` (
   `idusuario` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) DEFAULT NULL,
+  `cpf` varchar(20) DEFAULT NULL,
+  `telefone` varchar(20) DEFAULT NULL,
   `usuario` varchar(100) DEFAULT NULL,
   `senha` varchar(255) DEFAULT NULL,
   `ativo` tinyint(4) DEFAULT NULL,
   `tipo` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`idusuario`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='latin1_swedish_ci' AUTO_INCREMENT=7 ;
 
 --
 -- Extraindo dados da tabela `usuario`
 --
 
-INSERT INTO `usuario` (`idusuario`, `usuario`, `senha`, `ativo`, `tipo`) VALUES
-(1, 'caixa', 'a3cb966624ac67ed7d8e77c0f39ba36f', 1, 5),
-(2, 'balconista', '9f818615cef167fea7fac982f5f2e6ad', 1, 4),
-(3, 'gerente', '740d9c49b11f3ada7b9112614a54be41', 1, 1),
-(4, 'farmaceutico', 'c8c6b2eb278e770a534ffa5987e48449', 0, 3),
-(5, 'estoquista', '1e754b388ad580153b5b6eb54000aeb5', 1, 2);
+INSERT INTO `usuario` (`idusuario`, `nome`, `cpf`, `telefone`, `usuario`, `senha`, `ativo`, `tipo`) VALUES
+(5, 'Estoque', '000.000.000-00', '(00)0000-0000', 'estoquista', '1e754b388ad580153b5b6eb54000aeb5', 1, 2),
+(4, '', NULL, NULL, 'farmaceutico', 'c8c6b2eb278e770a534ffa5987e48449', 0, 3),
+(3, 'Gerente', '000.000.000-00', '(00)0000-0000', 'gerente', '740d9c49b11f3ada7b9112614a54be41', 1, 1),
+(2, 'Balcão', '000.000.000-00', '(00)0000-0000', 'balconista', '9f818615cef167fea7fac982f5f2e6ad', 1, 4),
+(1, 'Caixa', '000.000.000-00', '(00)0000-0000', 'caixa', 'a3cb966624ac67ed7d8e77c0f39ba36f', 1, 5),
+(6, 'Leonardo neves', '112.963.387-03', '(21) 3331-5441', 'leonardo.neves', '81dc9bdb52d04dc20036dbd8313ed055', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -452,7 +456,7 @@ CREATE TABLE IF NOT EXISTS `venda` (
   `data` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `caminho` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`idVenda`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Extraindo dados da tabela `venda`
