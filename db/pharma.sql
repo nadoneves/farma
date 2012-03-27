@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tempo de Geração: Mar 26, 2012 as 02:54 PM
+-- Tempo de Geração: Mar 27, 2012 as 02:44 PM
 -- Versão do Servidor: 5.1.49
 -- Versão do PHP: 5.3.3-1ubuntu9.6
 
@@ -160,7 +160,7 @@ CREATE TABLE IF NOT EXISTS `fornecedor` (
   `cidade` varchar(100) NOT NULL,
   `uf` tinyint(2) NOT NULL,
   PRIMARY KEY (`idfornecedor`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Extraindo dados da tabela `fornecedor`
@@ -170,7 +170,8 @@ INSERT INTO `fornecedor` (`idfornecedor`, `cnpj`, `nome`, `telefone`, `email`, `
 (1, '', 'Leonardo', '', '', '', '', 0, '', '', '', 19),
 (2, '', 'jeova shalom', '', '', '', '', 0, '', '', '', 19),
 (3, '00.000.000/0000-00', 'leomir', '(00) 0000-0000', 'a@a.com', '00000-000', 'sssssssss', 1234, 'abc', 'asasassa', 'sasasasa', 19),
-(4, '00.000.000/0000-00', 'FAETEC', '(11) 1111-1111', 'b@b.com', '00000-000', 'saasa', 12121, 'asasa', 'sasa', 'sasas', 17);
+(4, '00.000.000/0000-00', 'FAETEC Labs.', '(11) 1111-1111', 'a@b.com', '00000-000', 'saasa', 12121, 'asasa', 'sasa', 'sasas', 17),
+(5, '64.738.452/0001-58', 'FAETEc 123', '(21) 0000-0000', 'a@a.com', '21501-514', 'rua clarimundo de melo', 123, '', 'quintino', 'rio de janeiro', 19);
 
 -- --------------------------------------------------------
 

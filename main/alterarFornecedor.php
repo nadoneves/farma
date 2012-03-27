@@ -8,17 +8,19 @@ $fornecedor = new Fornecedor($_POST);
 if($_POST){
 	
 	$alt = $_POST['editar'];
-
+    
+    //condicao responsavel por efetuar as alteracoes
 	if( $alt == "Alterar") {
 		$alterar = $fornecedor->alterarfornecedor();
 		if($alterar){
-			$msg = "Fornecedor alterado";
+			$msg = "ok";
 		}else{
-			$msg = "Erro ao alterar o Fornecedor";
+			$msg = "erro";
 		}
-		echo "<script>alert('".$msg."')</script>";
-//		header('Location: alterarProduto.php');
+		header('Location: alterarFornecedor.php?msg='.$msg);
 	}
+    
+    // condicao que exibe os dados do usuario no formulario para edicao
 	if( $alt == "Editar") {
 		$editar = $fornecedor->pesqFornecedor();
 ?>
@@ -124,6 +126,7 @@ if($_POST){
 <?php 
 
 	}
+        // condicao que exibe a tabela com os resultados da pesquisa
         if ($alt=="Buscar"){
 		?>
 <style rel="stylesheet" type="text/css" media="screen">
@@ -180,8 +183,21 @@ if($_POST){
 		</table>
 <?php }
 } else {
+ 
+    if( $_GET ){
+        switch ($_GET['msg']) {
+            case 'ok':
+                $msg = "Usuario alterado";
+                break;
 
- ?>
+            case 'erro':
+                $msg = "Erro ao alterar o Usuario";
+                break;
+        }
+        echo "<script>alert('".$msg."')</script>";
+    }
+    
+?>
 <form method="post">
 	<table class='tbl_altProduto'>
 		<tr>

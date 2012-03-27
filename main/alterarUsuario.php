@@ -9,6 +9,7 @@ if($_POST){
 	
 	$alt = $_POST['editar'];
 
+    // Condicao responsavel por trocar o status de ativo para inativo
 	if( $alt == "Trocar") {
 		$alterar = $usuario->trocar( $_POST['idusuario'], $_POST['ativo'] );
 		if($alterar){
@@ -19,6 +20,7 @@ if($_POST){
 		header('Location: alterarUsuario.php?msg='.$msg);
 	}
 
+    //condicao responsavel por efetuar as alteracoes
 	if( $alt == "Alterar") {
 		$alterar = $usuario->alterar( $_POST['idusuario'] );
 		if($alterar){
@@ -28,6 +30,8 @@ if($_POST){
 		}
 		header('Location: alterarUsuario.php?msg='.$msg);
 	}
+    
+    // condicao que exibe os dados do usuario no formulario para edicao
 	if( $alt == "Editar") {
 		$editar = $usuario->pesquisar( $_POST['idusuario'] );
 ?>
@@ -132,6 +136,8 @@ if($_POST){
 <?php 
 
 	}
+    
+    // condicao que exibe a tabela com os resultados da pesquisa
 	if ($alt=="Buscar"){
 		?>
 <style rel="stylesheet" type="text/css" media="screen">
@@ -233,11 +239,7 @@ if($_POST){
 			</tbody>
 		</table>
 
-
-
-
-
-		<?php
+<?php
 	} 
 } else {
 
@@ -254,7 +256,7 @@ if( $_GET ){
 	echo "<script>alert('".$msg."')</script>";
 }
 
- ?>
+?>
 <form method="post">
 	<table class='tbl_altProduto'>
 		<tr>

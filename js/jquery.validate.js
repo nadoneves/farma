@@ -233,7 +233,7 @@ $.extend($.validator, {
 		equalTo: "Please enter the same value again.",
 		accept: "Please enter a value with a valid extension.",
 		maxlength: $.format("Please enter no more than {0} characters."),
-		minlength: $.format("Please enter at least {0} characters."),
+		minlength: $.format("Este campo deve conter mais que {0} caracteres."),
 		rangelength: $.format("Please enter a value between {0} and {1} characters long."),
 		range: $.format("Please enter a value between {0} and {1}."),
 		max: $.format("Please enter a value less than or equal to {0}."),

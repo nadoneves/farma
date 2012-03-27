@@ -1,5 +1,7 @@
 <?php
 
+// Classe global de chamada para todas as classes 
+
 include 'Conexao.class.php';
 #-----------------------\\
 $conexao = new Conexao();
