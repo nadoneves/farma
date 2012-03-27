@@ -25,7 +25,7 @@ class Fornecedor {
 	}
         
         public function alterarfornecedor() {
-            $query = "UPDATE fornecedor SET cnpj='$this->cnpj',
+            $query = "UPDATE fornecedor SET 
                         nome='$this->nome',
                         telefone='$this->telefone',
                         email='$this->email',
@@ -76,6 +76,15 @@ class Fornecedor {
 		$obj = mysql_fetch_object($res);
 		
 		return $obj;	
+		//return $query;
+	}
+        
+        public function consultarFornecedor( $word ) {
+		$query = "SELECT f.*, u.* FROM fornecedor f
+                            INNER JOIN uf u ON u.idUF = f.uf
+                                WHERE nome like '%$word%' or cnpj like '%$word%'";
+		$res = mysql_query($query);			
+		return $res;	
 		//return $query;
 	}
         

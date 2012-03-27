@@ -1,13 +1,18 @@
 <?php
 include '../class/Call.class.php';
 include '../function/Uppercase.func.php';
+include '../function/validar.php';
 include 'topo.php';
 
 if($_POST){
-	$fornecedor = new Fornecedor($_POST);
+    if( !cnpj($_POST['cnpj'])){
+        echo "<script>alert('ERRO. CNPJ nao e valido.'); history.back();</script>";
+    }else{
+        $fornecedor = new Fornecedor($_POST);
 	$res = $fornecedor->cadfornecedor();
 	($res) ? $msg = 'Fornecedor Cadastrado Com Sucesso' : $msg = 'Erro ao cadastrar o Fornecedor';
 	echo "<script>alert('".$msg."');</script>";
+    }
 }
 ?>
 <form method="post">

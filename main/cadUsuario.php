@@ -1,13 +1,20 @@
 <?php
 include '../class/Call.class.php';
 include '../function/Uppercase.func.php';
+include '../function/validar.php';
 include 'topo.php';
 
+
 if($_POST){
+    $verificaCpf = cpf( $_POST['cpf'] );
+    if( $verificaCpf ){
 	$usuario = new Usuario($_POST);
 	$res = $usuario->novo();
 	($res) ? $msg = 'Usuario Cadastrado Com Sucesso' : $msg = 'Erro ao cadastrar o Usuario';
 	echo "<script>alert('".$msg."');</script>";
+    }else{
+        echo "<script>alert('CPF invalido.'); history.back();</script>";
+    }
 }
 ?>
 <form method="post">

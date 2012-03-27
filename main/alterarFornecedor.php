@@ -27,7 +27,7 @@ if($_POST){
 <table class="tbl_cadProduto">
         <tr>
 		<td>CNPJ</td>
-		<td><input type="text" name="cnpj" id="cnpj" value="<?php echo $editar->cnpj ?>" /></td>
+		<td><input type="text" name="cnpj" id="cnpj" value="<?php echo $editar->cnpj ?>" disabled /></td>
 	</tr>
         <tr>
 		<td colspan=2>&nbsp;</td>
@@ -123,7 +123,62 @@ if($_POST){
 </form>
 <?php 
 
-	} 
+	}
+        if ($alt=="Buscar"){
+		?>
+<style rel="stylesheet" type="text/css" media="screen">
+	.tbl_listaProd{
+		border: 0;
+		width: 900px;	
+	}
+	.tbl_listaProd tr td{
+		height: 30px;	
+	}
+	a, a:visited{ color: blue; text-decoration: underline;}
+</style><form method="post">
+	<table class='tbl_altProduto'>
+		<tr>
+                    <td>fornecedor</td>
+			<td>
+				<input type="text" class="pad" name="nomefornecedor" id="nomefornecedor" value="<?php echo $_POST['nomefornecedor']; ?>" autocomplete="off" />
+				<input type="submit" class="bt_buscar" name="editar" id="editar" value="Buscar" />
+			</td>
+		</tr>
+	</table>
+</form>
+		<table class="tbl_listaProd">
+			<thead>
+				<tr>
+					<td>Nome</td>
+					<td>CNPJ</td>
+
+				</tr>
+			</thead>
+			<tbody>
+				
+				<?php
+					$consultar = $fornecedor->consultarFornecedor($_POST['nomefornecedor']);
+					
+					while( $consult = mysql_fetch_object( $consultar ) ){                               
+				?>
+				<tr>
+					<td>
+						<form id="formVer<?php echo $consult->idfornecedor; ?>" method="post" ation="#">
+							<input type="hidden" name="editar" value="Editar" />
+							<input type="hidden" name="idfornecedor" value="<?php echo $consult->idfornecedor; ?>" />
+						
+						<a href="#" onclick="ver(<?php echo $consult->idfornecedor; ?>)">
+							<?php echo $consult->nome; ?>
+						</a>
+						</form>
+					</td>
+					<td><?php echo $consult->cnpj; ?></td>
+				</tr>
+				<?php } ?>
+				
+			</tbody>
+		</table>
+<?php }
 } else {
 
  ?>
@@ -133,8 +188,7 @@ if($_POST){
 			<td>fornecedor&nbsp;&nbsp;</td>
 			<td>
 				<input type="text" class="pad" name="nomefornecedor" id="nomefornecedor" value="" autocomplete="off" />
-				<input type="hidden" class="pad" name="idfornecedor" id="idfornecedor" value="" />&nbsp;&nbsp;
-				<input type="submit" class="bt_buscar" name="editar" id="editar" value="Editar" />
+				<input type="submit" class="bt_buscar" name="editar" id="editar" value="Buscar" />
 			</td>
 		</tr>
 	</table>
@@ -142,26 +196,40 @@ if($_POST){
 <?php } ?>
 
 <script	src="../js/jquery.maskedinput.js" type="text/javascript"></script>
-<script language="javascript" type="text/javascript">
-		<!--
-			$(window).load(function() {
-				$('#nomefornecedor').simpleAutoComplete('../function/autocompleteFornecedor.php',{
-					autoCompleteClassName:	'autocomplete',
-					selectedClassName:		'sel',
-					attrCallBack:			'rel',
-					identifier:			'fornecedor'
-				}, usuarioCallback);
-			});
-			
-			function usuarioCallback( par ) {
-				$("#idfornecedor").val( par[0] );
-			}
-                        
-                        $('#cnpj').mask('99.999.999/9999-99');
-                        $('#telefone').mask('(99) 9999-9999');
-                        $('#cep').mask('99999-999');
-		// -->
+<script language="javascript" type="text/javascript">     
+    $(document).ready(function() {	
+        $('.tbl_listaProd thead').css('background','url(../imagens/layout/menu.png)');
+        $('.tbl_listaProd thead').css('background-position','0px -90px');
+        $('.tbl_listaProd thead').css('color','#fff');		
+        $('.tbl_listaProd tbody tr:odd').css('background','#fff');
+        $('.tbl_listaProd tbody tr:even').css('background','#bbb');
+
+        $('#cnpj').mask('99.999.999/9999-99');
+        $('#telefone').mask('(99) 9999-9999');
+        $('#cep').mask('99999-999');
+    });
+
+    function ver(id){
+        $('#formVer'+id).submit();	
+    }                      
 </script>
 
 <?php include 'rodape.php'; ?>
 
+<script>
+	$(document).ready(function() {	
+		$('.tbl_listaProd thead').css('background','url(../imagens/layout/menu.png)');
+        $('.tbl_listaProd thead').css('background-position','0px -90px');
+		$('.tbl_listaProd thead').css('color','#fff');		
+		$('.tbl_listaProd tbody tr:odd').css('background','#fff');
+		$('.tbl_listaProd tbody tr:even').css('background','#bbb');
+	});
+
+	function ver(id){
+		$('#formVer'+id).submit();	
+	}
+
+	function trocar(id){
+		$('#formTrocar'+id).submit();	
+	}
+</script>
