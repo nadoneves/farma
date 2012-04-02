@@ -118,7 +118,7 @@ if($_POST){
 	<tr>
 		<td colspan="2" align="right">
 			<input type="submit" class="bt_gravar" name="editar" value="Alterar" />
-			<input type="button" class="bt_voltar" onclick="javascript: window.location='home.php';" value="Voltar" />
+			<input type="button" class="bt_voltar" onclick="javascript: window.location='alterarFornecedor.php';" value="Voltar" />
 		</td>
 	</tr>
 </table>

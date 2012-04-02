@@ -5,7 +5,7 @@ include_once '../function/autenticacao.php';
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=latin-1">
-		<title>Rede Pharma</title>
+		<title>SGF</title>
         <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
 		<link href="../css/estilo.css" type="text/css" rel="stylesheet" media="all" />
 		<link href="../css/autocomplete.css" type="text/css" rel="stylesheet" media="all" />

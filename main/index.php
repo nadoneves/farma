@@ -22,9 +22,25 @@ if($_GET){
     }
 }
 ?>
-
+<style>
+    body{
+        background: url(../imagens/Login.jpg) no-repeat;
+        background-position: -200px -100px;
+    }
+    form{
+        position:absolute;
+        top: 180px;
+        left: 200px;
+    }
+    input[type=text],input[type=password]{
+        width: 150px;
+    }
+    input{
+        height: 30px;
+    }
+</style>
 <form action="../function/login.php" method="POST">
-    <table border="1">
+    <table border="0">
         <tbody>
             <tr>
                 <td>Usu&aacute;rio</td>
@@ -35,9 +51,9 @@ if($_GET){
                 <td><input type="password" name="senha" value="" /></td>
             </tr>
             <tr>
-                <td colspan="2">
-                        <input type="submit" value="Logar" /> 
+                <td colspan="2" align="right">
                         <input type="reset" value="Cancelar" />
+                        <input type="submit" value="Entrar" /> 
                 </td>
             </tr>
         </tbody>

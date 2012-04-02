@@ -2,7 +2,14 @@ body { text-align:center; margin:0; font: normal 16px tahoma, Arial, Helvetica, 
 
 a, a:hover, a:visited { text-decoration: none; color: #000;}
 
-#container { border:0px solid red; width:1000px; height:655px; margin:0 auto; overflow: auto; }
+#container { 
+    border:0px solid red; 
+    background: url(../imagens/fundoOpaco.jpg) no-repeat;
+    background-position: 0 200px;
+    width:1000px; 
+    height:655px; 
+    margin:0 auto; 
+    overflow: auto; }
 
 table { margin: 0 auto; }
 
