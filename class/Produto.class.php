@@ -4,24 +4,21 @@ class Produto {
 
 	function __construct($param){
 		$this->idProduto = $param['idProduto'];
-		$this->idNatureza = $param['natureza'];
-		$this->idBens = $param['bens'];
+        $this->tipo = $param['tipo'];
+        $this->marca = $param['marca'];
 		$this->quantidade = $param['quantidade'];
 		$this->precoUnidade = $param['precoUnidade'];
 		$this->precoVenda = $param['precoVenda'];	
 		$this->descricao = $param['descricao'];
-		$this->unidade = $param['unidade'];
+		$this->codBarras = $param['codBarras'];
+        $this->dataFab = data_ymd($param['dataFab']);
+        $this->dataVal = data_ymd($param['dataVal']);
 	}
 	
-	public function cadProduto(){
-		$codBarras = CodBarra::gerarCodBarra($this->idNatureza,$this->idBens);		
+	public function cadProduto(){	
 		
-		$query = "INSERT INTO produto VALUES (null,'$this->idNatureza','$this->idBens','$this->precoUnidade','$this->precoVenda','$this->descricao', '$this->unidade','$codBarras',null)";
+		$query = "INSERT INTO produto VALUES (null, '$this->tipo', '$this->marca', null, null, '$this->descricao', '$this->codBarras', '$this->dataFab','$this->dataVal', null)";
 		$res = mysql_query($query);
-
-		//Gerar matriz na tabela entrada ao adicionar um produto novo!	
-		$id = mysql_insert_id();
-		$geraMatrix = Entrada::entradaProdutoMatriz($id);
 
 		return $res;
 	}

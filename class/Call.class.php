@@ -1,5 +1,7 @@
 <?php
 
+require_once("../function/formataData.php");
+
 // Classe global de chamada para todas as classes 
 
 include 'Conexao.class.php';

@@ -13,34 +13,27 @@ if($_POST){
 <form method="post">
 <table class="tbl_cadProduto">
 	<tr>
-		<td>Natureza</td>
+		<td>Cod. Barra</td>
 		<td>
-			<select name="natureza">
-				<option value="">-- SELECIONE</option>
-				<?php
-					$listarNatureza = Natureza::listarNatureza();
-					while( $nat = mysql_fetch_array($listarNatureza) ) {
-						echo "<option value='".$nat['idNatureza']."'>".converteM($nat['natureza'],1)."</option>";					
-					}
-				?>
-			</select>	
+			<input type="text" name="codBarras" />	
 		</td>
 	</tr>
 	<tr>
 		<td colspan=2>&nbsp;</td>
 	</tr>
-	<tr>
-		<td>Bens</td>
+    <tr>
+		<td>Tipo</td>
 		<td>
-			<select name="bens">
-				<option value="">-- SELECIONE</option>
-				<?php
-					$listarBens = Produto::listarBens();
-					while( $bens = mysql_fetch_array($listarBens) ) {
-						echo "<option value='".$bens['idBens']."'>".converteM($bens['bens'],1)."</option>";					
-					}
-				?>
-			</select>
+			<input type="text" name="tipo" />	
+		</td>
+	</tr>
+    <tr>
+		<td colspan=2>&nbsp;</td>
+	</tr>
+    <tr>
+		<td>Marca</td>
+		<td>
+			<input type="text" name="marca" />	
 		</td>
 	</tr>
 	<tr>
@@ -54,22 +47,15 @@ if($_POST){
 		<td colspan=2>&nbsp;</td>
 	</tr>
 	<tr>
-		<td>Pre&ccedil;o Unidade</td>
-		<td><input type="text" name="precoUnidade" id="precoUnidade" /></td>
+        <td>Fabrica&ccedil;&atilde;o</td>
+		<td><input type="text" name="dataFab" id="dataFab" readonly /></td>
 	</tr>
 	<tr>
 		<td colspan=2>&nbsp;</td>
 	</tr>
 	<tr>
-		<td>Pre&ccedil;o Venda</td>
-		<td><input type="text" name="precoVenda" id="precoVenda" /></td>
-	</tr>
-	<tr>
-		<td colspan=2>&nbsp;</td>
-	</tr>
-	<tr>
-		<td>Unidade</td>
-		<td><input type="text" name="unidade" /></td>
+		<td>Validade</td>
+		<td><input type="text" name="dataVal" id="dataVal" readonly /></td>
 	</tr>
 	<tr>
 		<td colspan=2>&nbsp;</td>
@@ -85,8 +71,10 @@ if($_POST){
 <script	src="../js/jquery.maskMoney.js" type="text/javascript"></script>
 <script>
 <!--
-    $('#precoUnidade').maskMoney({allowZero:false, allowNegative:true, defaultZero:false});
-    $('#precoVenda').maskMoney({allowZero:false, allowNegative:true, defaultZero:false});
+    $('#precoUnidade').maskMoney({allowZero:false, allowNegative:false, defaultZero:false});
+    $('#precoVenda').maskMoney({allowZero:false, allowNegative:false, defaultZero:false});
+    $("#dataFab").datepicker();
+    $("#dataVal").datepicker();
 -->    
 </script>
 

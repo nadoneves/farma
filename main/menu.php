@@ -6,29 +6,12 @@
                         <img src="../imagens/layout/aluno.png"/>SGF - <?php echo $_SESSION['usuario']['nome']?>
                     </a>
                 </li>
-		
-		<!-- OPCOES DO MENU (Programa) -->
-		<!--
-		<li><a href="#" class="main">Usu&aacute;rio</a>
-			<ul>
-				<li><a href="usuario.cadastrar.php">Cadastrar</a></li>
-				<li><a href="usuario.editar.php">Editar</a></li>
-				<li><a href="usuario.excluir.php">Excluir</a></li>
-			</ul>
-		</li>
-		-->
 		<?php
                     if( $_SESSION['usuario']['tipo'] == 1 
                         or $_SESSION['usuario']['tipo'] == 2 
                             or $_SESSION['usuario']['tipo'] == 3 
                                 or $_SESSION['usuario']['tipo'] == 4 ){
-                ?>
-		<li><a href="#" class="main">NATUREZA</a>
-			<ul>
-                            <li><a href="cadNatureza.php">CADASTRAR NATUREZA</a></li>
-			</ul>
-		</li>
-                
+                ?>            
 		
 		<li><a href="#" class="main">PRODUTO</a>
 			<ul>

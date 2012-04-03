@@ -12,7 +12,12 @@ include_once '../function/autenticacao.php';
 		<link href="../css/menu.css" type="text/css" rel="stylesheet" media="all" />
 		<script	src="../js/jquery.js" type="text/javascript"></script>
 		<script	src="../js/autocomplete.js" type="text/javascript"></script>
-                <script	src="../js/jquery.validate.js" type="text/javascript"></script>
+        <script	src="../js/jquery.validate.js" type="text/javascript"></script>
+        <script src="../js/calendario/js/jquery-1.7.1.min.js"></script>
+        <script src="../js/calendario/ui/jquery.ui.core.js"></script>
+        <script src="../js/calendario/ui/jquery.ui.widget.js"></script>
+        <script src="../js/calendario/ui/jquery.ui.datepicker.js"></script>
+        <link rel="stylesheet" href="../js/calendario/css/redmond/jquery-ui-1.8.17.custom.css">
 		<script language="JavaScript">
 			/*function trava() {
 				var tecla = window.event.keyCode; 
