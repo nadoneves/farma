@@ -16,7 +16,7 @@ if($_POST){
     }
 }
 ?>
-<form method="post" id="form">
+<form method="post" id="form" name="form" action="#">
 <table class="tbl_cadProduto">
         <tr>
 		<td>CNPJ</td>
@@ -111,6 +111,7 @@ if($_POST){
 		<td class="input">
 			<input type="button" class="bt_gravar" id="gravar" value="Gravar" />
 			<input type="button" class="bt_voltar" onclick="javascript: window.location='home.php';" value="Voltar" />
+            <input type="button" class="bt_buscar" name="editar" id="editar" value="Buscar" />
 		</td>
 	</tr>
 </table>
@@ -136,6 +137,7 @@ table{ margin-left: 300px}
 td.input{ width: 500px; text-align: left;}
 </style>
 <script	src="../js/jquery.maskedinput.js" type="text/javascript"></script>
+<script	src="../js/jquery.validate.js" type="text/javascript"></script>
 <script>
     // mascara dos campos
     $('#cnpj').mask('99.999.999/9999-99');
@@ -178,6 +180,11 @@ td.input{ width: 500px; text-align: left;}
             }
         });
         $('#form').submit();
+    });
+    
+    $("#editar").click( function(){
+        document.forms["form"].action = "alterarFornecedor.php";
+        document.forms["form"].submit();
     });
 
 </script>

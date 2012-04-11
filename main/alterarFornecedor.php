@@ -160,7 +160,12 @@ if($_POST){
 			<tbody>
 				
 				<?php
-					$consultar = $fornecedor->consultarFornecedor($_POST['nomefornecedor']);
+                    if( empty($_POST['nomefornecedor']) )
+                        $nomefornecedor = $_POST['nome'];
+                    else
+                        $nomefornecedor = $_POST['nomefornecedor'];
+                    
+					$consultar = $fornecedor->consultarFornecedor($nomefornecedor);
 					
 					while( $consult = mysql_fetch_object( $consultar ) ){                               
 				?>
