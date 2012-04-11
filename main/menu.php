@@ -15,8 +15,7 @@
 		
 		<li><a href="#" class="main">PRODUTO</a>
 			<ul>
-                            <li><a href="cadProduto.php">CADASTRAR PRODUTO</a></li>
-                            <li><a href="alterarProduto.php">ALTERAR PRODUTO</a></li>
+                            <li><a href="cadProduto.php">MANTER PRODUTO</a></li>
                             <li><a href="Entrada.php">ENTRADA PRODUTO</a></li>
 			</ul>
 		</li>

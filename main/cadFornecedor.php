@@ -12,14 +12,60 @@ if($_POST){
     $alt = $_POST['editar'];
     
     if( $alt == "Gravar" ){
-        if( !cnpj($_POST['cnpj'])){
-            echo "<script>alert('ERRO. CNPJ nao e valido.'); history.back();</script>";
+        
+        extract($_POST);
+        $cont = 0;
+        
+        if( $cnpj == "" ){
+            $msgAlert .= 'O campo CNPJ e obrigatorio';
+            $cont++;
+        }        
+        if( $nome == "" ){
+           $msgAlert .= '\nO campo Nome e obrigatorio';
+            $cont++;
+        }        
+        if( $telefone == "" ){
+            $msgAlert .= '\nO campo Telefone e obrigatorio';
+            $cont++;
+        }        
+        if( $cep == "" ){
+            $msgAlert .= '\nO campo CEP e obrigatorio';
+            $cont++;
+        }        
+        if( $endereco == "" ){
+            $msgAlert .= '\nO campo Endereco e obrigatorio';
+            $cont++;
+        }        
+        if( $numero == "" ){
+            $msgAlert .= '\nO campo Numero e obrigatorio';
+            $cont++;
+        }
+        if( $bairro == "" ){
+            $msgAlert .= '\nO campo Bairro e obrigatorio';
+            $cont++;
+        }
+        if( $cidade == "" ){
+            $msgAlert .= '\nO campo Cidade e obrigatorio';
+            $cont++;
+        }
+        if( $uf == "" ){
+            $msgAlert .= '\nO campo UF e obrigatorio';
+            $cont++;
+        }
+        
+        if( $cont < 1){
+            if( !cnpj($_POST['cnpj'])){
+                echo "<script>alert('ERRO. CNPJ nao e valido.'); history.back();</script>";
+            }else{
+                $fornecedor = new Fornecedor($_POST);
+            $res = $fornecedor->cadfornecedor();
+            ($res) ? $msg = 'Fornecedor Cadastrado Com Sucesso' : $msg = 'Erro ao cadastrar o Fornecedor';
+            echo "<script>alert('".$msg."');</script>";
+            }
         }else{
-            $fornecedor = new Fornecedor($_POST);
-        $res = $fornecedor->cadfornecedor();
-        ($res) ? $msg = 'Fornecedor Cadastrado Com Sucesso' : $msg = 'Erro ao cadastrar o Fornecedor';
-        echo "<script>alert('".$msg."');</script>";
-        }   
+            echo "<script>alert('".$msgAlert."');
+                    history.back()</script>";
+        }
         
         
         
@@ -220,21 +266,21 @@ if($_POST){
 <form method="post" id="form" name="form" action="#">
 <table class="tbl_cadProduto">
         <tr>
-		<td>CNPJ</td>
+		<td>CNPJ*</td>
 		<td class="input"><input type="text" name="cnpj" id="cnpj" /></td>
 	</tr>
         <tr>
 		<td colspan=2>&nbsp;</td>
 	</tr>
 	<tr>
-		<td>nome</td>
+		<td>nome*</td>
 		<td class="input"><input type="text" name="nome" /></td>
 	</tr>
         <tr>
 		<td colspan=2>&nbsp;</td>
 	</tr>
         <tr>
-		<td>telefone</td>
+		<td>telefone*</td>
 		<td class="input"><input type="text" name="telefone" id="telefone" /></td>
 	</tr>
         <tr>
@@ -248,21 +294,21 @@ if($_POST){
 		<td colspan=2>&nbsp;</td>
 	</tr>
 	<tr>
-		<td>cep</td>
+		<td>cep*</td>
 		<td class="input"><input type="text" name="cep" id="cep" /></td>
 	</tr>
 	<tr>
 		<td colspan=2>&nbsp;</td>
 	</tr>
 	<tr>
-		<td>endere&ccedil;o</td>
+		<td>endere&ccedil;o*</td>
 		<td class="input"><input type="text" name="endereco" /></td>
 	</tr>
 	<tr>
 		<td colspan=2>&nbsp;</td>
 	</tr>
 	<tr>
-		<td>numero</td>
+		<td>numero*</td>
 		<td class="input"><input type="text" name="numero" id="numero" /></td>
 	</tr>
 	<tr>
@@ -276,21 +322,21 @@ if($_POST){
 		<td colspan=2>&nbsp;</td>
 	</tr>
 	<tr>
-		<td>bairro</td>
+		<td>bairro*</td>
 		<td class="input"><input type="text" name="bairro" /></td>
 	</tr>
 	<tr>
 		<td colspan=2>&nbsp;</td>
 	</tr>
 	<tr>
-		<td>cidade</td>
+		<td>cidade*</td>
 		<td class="input"><input type="text" name="cidade" /></td>
 	</tr>
 	<tr>
 		<td colspan=2>&nbsp;</td>
 	</tr>
 	<tr>
-		<td>uf</td>
+		<td>uf*</td>
 		<td class="input">
                     <select name="uf">
                         <option value="" selected>SELECIONE</option>
@@ -310,7 +356,7 @@ if($_POST){
 	<tr>
         <td></td>
 		<td class="input">
-			<input type="button" class="bt_gravar" id="gravar" name="editar" value="Gravar" />
+			<input type="submit" class="bt_gravar" id="gravar" name="editar" value="Gravar" />
 			<input type="button" class="bt_voltar" onclick="javascript: window.location='home.php';" value="Voltar" />
             <input type="submit" class="bt_buscar" name="editar" id="editar" value="Buscar" />
 		</td>
@@ -322,11 +368,11 @@ if($_POST){
 if( $_GET ){
     switch ($_GET['msg']) {
         case 'ok':
-            $msg = "Usuario alterado";
+            $msg = "Fornecedor alterado";
             break;
 
         case 'erro':
-            $msg = "Erro ao alterar o Usuario";
+            $msg = "Erro ao alterar o Fornecedor";
             break;
     }
     echo "<script>alert('".$msg."')</script>";
@@ -368,44 +414,6 @@ td.input{ width: 500px; text-align: left;}
     $('.tbl_listaProd thead').css('color','#fff');		
     $('.tbl_listaProd tbody tr:odd').css('background','#fff');
     $('.tbl_listaProd tbody tr:even').css('background','#bbb');
-    
-    // Validacao do formulario
-    $('#gravar').click( function(){
-        $('#form').validate({
-            // define regras para os campos
-            rules: {
-                nome: {
-                    required: true,
-                    minlength: 10
-                },
-                cnpj: {
-                    required: true
-                },
-                telefone: {
-                    required: true
-                },
-                cep: {
-                    required: true
-                },
-                endereco: {
-                    required: true
-                },
-                numero: {
-                    required: true
-                },
-                bairro: {
-                    required: true
-                },
-                cidade: {
-                    required: true
-                },
-                uf: {
-                    required: true
-                }
-            }
-        });
-        $('#form').submit();
-    });
     
     function ver(id){
         $('#formVer'+id).submit();	

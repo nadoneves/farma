@@ -12,14 +12,52 @@ if($_POST){
     $alt = $_POST['editar'];
     
     if( $alt == "Gravar" ){
-        $verificaCpf = cpf( $_POST['cpf'] );
-        if( $verificaCpf ){
-            $usuario = new Usuario($_POST);
-            $res = $usuario->novo();
-            ($res) ? $msg = 'Usuario Cadastrado Com Sucesso' : $msg = 'Erro ao cadastrar o Usuario';
-            echo "<script>alert('".$msg."');</script>";
+        
+        extract($_POST);
+        $cont = 0;
+        
+        if( $nome == "" ){
+            $msgAlert .= 'O campo Nome e obrigatorio';
+            $cont++;
+        }        
+        if( $cpf == "" ){
+           $msgAlert .= '\nO campo CPF e obrigatorio';
+            $cont++;
+        }        
+        if( $telefone == "" ){
+            $msgAlert .= '\nO campo Telefone e obrigatorio';
+            $cont++;
+        }        
+        if( $usuario == "" ){
+            $msgAlert .= '\nO campo Usuario e obrigatorio';
+            $cont++;
+        }        
+        if( $senha == "" ){
+            $msgAlert .= '\nO campo Senha e obrigatorio';
+            $cont++;
+        }        
+        if( $ativo == "" ){
+            $msgAlert .= '\nO campo Status e obrigatorio';
+            $cont++;
+        }
+        if( $tipo == "" ){
+            $msgAlert .= '\nO campo Funcao e obrigatorio';
+            $cont++;
+        }
+                
+        if( $cont < 1){
+            $verificaCpf = cpf( $_POST['cpf'] );
+            if( $verificaCpf ){
+                $usuario = new Usuario($_POST);
+                $res = $usuario->novo();
+                ($res) ? $msg = 'Usuario Cadastrado Com Sucesso' : $msg = 'Erro ao cadastrar o Usuario';
+                echo "<script>alert('".$msg."');</script>";
+            }else{
+                echo "<script>alert('CPF invalido.'); history.back();</script>";
+            }
         }else{
-            echo "<script>alert('CPF invalido.'); history.back();</script>";
+            echo "<script>alert('".$msgAlert."');
+                    history.back()</script>";
         }
     }
     
@@ -35,7 +73,7 @@ if($_POST){
     
     //condicao responsavel por efetuar as alteracoes
 	if( $alt == "Alterar") {
-		$alterar = $usuario->alterar( $_POST['idusuario'] );
+		$alterar = $usuario->alterarProduto();
 		if($alterar){
 			$msg = "ok";
 		}else{
@@ -272,42 +310,42 @@ if($_POST){
 <form method="post" id="form">
 <table class="tbl_cadProduto" border="0">
 	<tr>
-		<td>Nome</td>
+		<td>Nome*</td>
 		<td class="input"><input type="text" name="nome" id="nome" /></td>
 	</tr>
 	<tr>
 		<td colspan=2>&nbsp;</td>
 	</tr>
 	<tr>
-		<td>cpf</td>
+		<td>cpf*</td>
 		<td class="input"><input type="text" name="cpf" id="cpf" /></td>
 	</tr>
 	<tr>
 		<td colspan=2>&nbsp;</td>
 	</tr>
 	<tr>
-		<td>telefone</td>
+		<td>telefone*</td>
 		<td class="input"><input type="text" name="telefone" id="telefone" /></td>
 	</tr>
 	<tr>
 		<td colspan=2>&nbsp;</td>
 	</tr>
 	<tr>
-		<td>Usu&aacute;rio</td>
+		<td>Usu&aacute;rio*</td>
 		<td class="input"><input type="text" name="usuario" id="usuario" style="text-transform: none;" /></td>
 	</tr>
 	<tr>
 		<td colspan=2>&nbsp;</td>
 	</tr>
 	<tr>
-		<td>Senha</td>
+		<td>Senha*</td>
 		<td class="input"><input type="password" name="senha" id="senha" style="text-transform: none;" /></td>
 	</tr>
 	<tr>
 		<td colspan=2>&nbsp;</td>
 	</tr>
 	<tr>
-		<td>Status</td>
+		<td>Status*</td>
 		<td class="input">
                     <select name="ativo">
                         <option value="a" selected></option>
@@ -320,7 +358,7 @@ if($_POST){
 		<td colspan=2>&nbsp;</td>
 	</tr>
         <tr>
-            <td>Fun&ccedil;&atilde;o</td>
+            <td>Fun&ccedil;&atilde;o*</td>
 		<td class="input">
                     <select name="tipo">
                         <option></option>
@@ -338,7 +376,7 @@ if($_POST){
 	<tr>
         <td>
 		<td class="input">
-			<input type="button" class="bt_gravar" id="gravar" name="editar" value="Gravar" />
+			<input type="submit" class="bt_gravar" id="gravar" name="editar" value="Gravar" />
 			<input type="button" class="bt_voltar" onclick="javascript: window.location='home.php';" value="Voltar" />
             <input type="submit" class="bt_buscar" name="editar" id="editar" value="Buscar" />
 		</td>
@@ -391,39 +429,7 @@ td.input{ width: 500px; text-align: left;}
     // mascara de campos
     $('#cpf').mask('999.999.999-99');
     $('#telefone').mask('(99) 9999-9999');
-    
-    // Validacao do formulario
-    $('#gravar').click( function(){
-        $('#form').validate({
-            // define regras para os campos
-            rules: {
-                nome: {
-                    required: true,
-                    minlength: 10
-                },
-                cpf: {
-                    required: true
-                },
-                telefone: {
-                    required: true
-                },
-                usuario: {
-                    required: true
-                },
-                senha: {
-                    required: true
-                },
-                ativo: {
-                    required: true
-                },
-                tipo: {
-                    required: true
-                }
-            }
-        });
-        $('#form').submit();
-    });
-    
+     
     $('.tbl_listaProd thead').css('background','url(../imagens/layout/menu.png)');
     $('.tbl_listaProd thead').css('background-position','0px -90px');
     $('.tbl_listaProd thead').css('color','#fff');		

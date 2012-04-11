@@ -50,10 +50,7 @@ class Produto {
 	}
 	
 	public function pesqProduto() {
-		$query = "SELECT p.*, n.natureza, b.bens FROM produto p
-                            INNER JOIN natureza n ON n.idNatureza = p.idNatureza 
-				INNER JOIN bens b ON b.idBens = p.idBens	 
-					WHERE p.idProduto='$this->idProduto' ";
+		$query = "SELECT * FROM produto WHERE idProduto='$this->idProduto' ";
 		$res = mysql_query($query);	
 		$obj = mysql_fetch_object($res);
 		
@@ -62,18 +59,25 @@ class Produto {
 	}
 
 	public function alterarProduto() {
-		$query = "UPDATE produto SET idNatureza='$this->idNatureza',
-                            idBens='$this->idBens',
-                            precoUnidade='$this->precoUnidade',
-                            precoVenda='$this->precoVenda',
-                            descricao='$this->descricao',
-                            unidade='$this->unidade'
+		$query = "UPDATE produto SET tipo='$this->tipo',
+                                    marca='$this->marca',
+                                    descricao='$this->descricao',
+                                    codBarra='$this->codBarras',
+                                    dataFab='$this->dataFab',
+                                    dataVal='$this->dataVal'
                                 WHERE idProduto='$this->idProduto'";
 		$res = mysql_query($query);
 
 		return $res;
 		//echo $query;
 	}
+    
+    public function consultarProduto( $key ) {
+        $query = "SELECT * FROM produto WHERE tipo like '%$key%' or marca like '%$key%' or codBarra like '%$key%'";
+        $res = mysql_query($query);
+
+		return $res;
+    }
 	
 }
 
