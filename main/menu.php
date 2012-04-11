@@ -54,12 +54,7 @@
                     if( $_SESSION['usuario']['tipo'] == 1 ){
                 ?>
                 
-                <li><a href="#" class="main">USU&Aacute;RIO</a>
-			<ul>
-                            <li><a href="cadUsuario.php">CADASTRAR USU&Aacute;RIO</a></li>
-                            <li><a href="alterarUsuario.php">ALTERAR USU&Aacute;RIO</a></li>
-			</ul>
-		</li>
+                <li><a href="cadUsuario.php" class="main">USU&Aacute;RIO</a></li>
                 
                 <?php } ?>
                 
