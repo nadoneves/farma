@@ -4,11 +4,14 @@ include '../function/Uppercase.func.php';
 include 'topo.php';
 
 if($_POST){
+    
+    $alt = $_POST['editar'];
+    
 	$produto = new Produto($_POST);
 	$res = $produto->cadProduto();
 	($res) ? $msg = 'Produto Cadastrado Com Sucesso' : $msg = 'Erro ao cadastrar o Produto';
 	echo "<script>alert('".$msg."');</script>";
-}
+}else{
 ?>
 <form method="post">
 <table class="tbl_cadProduto">
@@ -62,11 +65,13 @@ if($_POST){
 	</tr>
 	<tr>
 		<td colspan="2" align="right">
-			<input type="button" class="bt_gravar" onclick="submit()" value="Gravar" />
+			<input type="button" class="bt_gravar" onclick="submit()" name="editar" value="Gravar" />
 			<input type="button" class="bt_voltar" onclick="javascript: window.location='home.php';" value="Voltar" />
 		</td>
 	</tr>
 </form>
+
+<?php } // fim if $_POST ?>
 
 <script	src="../js/jquery.maskMoney.js" type="text/javascript"></script>
 <script>

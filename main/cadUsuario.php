@@ -142,7 +142,7 @@ if($_POST){
 	<tr>
 		<td colspan="2" align="right">
 			<input type="submit" class="bt_gravar" name="editar" value="Alterar" />
-			<input type="button" class="bt_voltar" onclick="javascript: window.location='alterarUsuario.php';" value="Cancelar" />
+			<input type="button" class="bt_voltar" onclick="javascript: window.location='cadUsuario.php';" value="Cancelar" />
 		</td>
 	</tr>
         </table>
@@ -178,6 +178,7 @@ if($_POST){
 			<td>
 				<input type="text" class="pad" name="nomeUsuario" id="nomeUsuario" value="<?php echo $keyConsulta; ?>" autocomplete="off" />
 				<input type="submit" class="bt_buscar" name="editar" id="editar" value="Buscar" />
+                <input type="button" class="bt_voltar" onclick="javascript: window.location='cadUsuario.php';" value="Voltar" />
 			</td>
 		</tr>
 		<tr>
@@ -337,7 +338,7 @@ if($_POST){
 	<tr>
         <td>
 		<td class="input">
-			<input type="button" class="bt_gravar" id="gravar" value="Gravar" />
+			<input type="button" class="bt_gravar" id="gravar" name="editar" value="Gravar" />
 			<input type="button" class="bt_voltar" onclick="javascript: window.location='home.php';" value="Voltar" />
             <input type="submit" class="bt_buscar" name="editar" id="editar" value="Buscar" />
 		</td>
@@ -385,6 +386,7 @@ table{ margin-left: 300px}
 td.input{ width: 500px; text-align: left;}
 </style>
 <script	src="../js/jquery.maskedinput.js" type="text/javascript"></script>
+<script	src="../js/jquery.validate.js" type="text/javascript"></script>
 <script>
     // mascara de campos
     $('#cpf').mask('999.999.999-99');
