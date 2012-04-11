@@ -25,11 +25,7 @@
                     if( $_SESSION['usuario']['tipo'] == 1 
                         or $_SESSION['usuario']['tipo'] == 2 ){
                             ?>
-                <li><a href="#" class="main">FORNECEDOR</a>
-			<ul>
-                            <li><a href="cadFornecedor.php">CADASTRAR FORNECEDOR</a></li>
-                            <li><a href="alterarFornecedor.php">EDITAR FORNECEDOR</a></li>
-			</ul>
+                <li><a href="cadFornecedor.php" class="main">FORNECEDOR</a>
 		</li>
                 <?php } ?>
 		
