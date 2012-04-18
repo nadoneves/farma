@@ -11,6 +11,7 @@ $conexao = new Conexao();
 include 'CodBarra.class.php';
 include 'Doacao.class.php';
 include 'Entrada.class.php';
+include 'Estoque.class.php';
 include 'Fornecedor.class.php';
 include 'Natureza.class.php';
 include 'Produto.class.php';

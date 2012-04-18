@@ -6,9 +6,7 @@ class Produto {
 		$this->idProduto = $param['idProduto'];
         $this->tipo = $param['tipo'];
         $this->marca = $param['marca'];
-		$this->quantidade = $param['quantidade'];
-		$this->precoUnidade = $param['precoUnidade'];
-		$this->precoVenda = $param['precoVenda'];	
+		$this->quantidade = $param['quantidade'];	
 		$this->descricao = $param['descricao'];
 		$this->codBarras = $param['codBarras'];
         $this->dataFab = data_ymd($param['dataFab']);
@@ -18,8 +16,10 @@ class Produto {
 	
 	public function cadProduto(){	
 		
-		$query = "INSERT INTO produto VALUES (null, '$this->tipo', '$this->marca', null, null, '$this->descricao', '$this->codBarras', '$this->dataFab', '$this->lote','$this->dataVal', null)";
+		$query = "INSERT INTO produto VALUES (null, '$this->tipo', '$this->marca', '$this->descricao', '$this->codBarras', '$this->dataFab', '$this->lote','$this->dataVal', null)";
 		$res = mysql_query($query);
+        
+        Estoque::novo( mysql_insert_id(),0 );
 
 		return $res;
 	}

@@ -3,19 +3,20 @@ include "../class/Call.class.php";
 
 $codBarras = $_GET['codBarras'];
 $codVenda = $_GET['codVenda'];
+$qtdVenda = $_GET['qtd'];
 
 # Seleciona o produto através do Código de Barras
-$query = "SELECT p.*, n.natureza, e.quantidade FROM produto p 
-			INNER JOIN natureza n ON n.idNatureza = p.idNatureza
+$query = "SELECT p.*, e.precoVenda, es.qtd FROM produto p 
 				INNER JOIN entrada_produto e ON e.idProduto = p.idProduto
-					WHERE p.codBarra='$codBarras'"; //and e.quantidade > 0";
+                    INNER JOIN estoque es ON es.idProduto = p.idProduto
+                        WHERE p.codBarra='$codBarras'";
 
 $res = mysql_query($query);
 $l = mysql_fetch_array($res);
 
-# Verifica se o Produto está disponível em estoque
-if( $l['quantidade'] == '0' ){
-    echo "<script>alert('PRODUTO NAO DISPONIVEL EM ESTOQUE.');</script>";
+if ($res){
+if( !empty($codBarras) && $qtdVenda > $l['qtd']){
+    echo "<script>alert('Produto sem estoque')</script>";
 }else{
 #-----------------------------------------------------------------------------------------------
 
@@ -25,29 +26,29 @@ $query2 = "SELECT * FROM venda WHERE idProduto='".$l['idProduto']."' AND codVend
 $res2 = mysql_query($query2); 
 $l2 = mysql_num_rows($res2);
 $l22 = mysql_fetch_array($res2);
+#-----------------------------------------------------------------------------------------------
 
 # se sim atualiza a quantidade e o valor
 if( $l2 != 0 ){
-	$qtd = $l22['qtd'] + 1;
-	$total = $l22['total'] + $l['precoVenda'];
+	$qtd = $l22['qtd'] + $qtdVenda;
+	$total = $l22['total'] + $l['precoVenda'] * $qtdVenda;
 	$query3 = "UPDATE venda SET qtd='$qtd', total='$total' WHERE idProduto='".$l['idProduto']."' AND codVenda='$codVenda'";
 	$res3 = mysql_query($query3);
 }else{
 	# se não adiciona o novo produto
 	if(	$l['idProduto'] != "") {
 		//echo "upa";
-		$query4 = "INSERT INTO venda VALUES (null,'$codVenda','".$l['idProduto']."','1','".$l['precoVenda']."',null,null)";
+		$query4 = "INSERT INTO venda VALUES (null,'$codVenda','".$l['idProduto']."','".$qtdVenda."','".$l['precoVenda'] * $qtdVenda."',null,null)";
 		$res4 = mysql_query($query4);
 	}
 }
 #-----------------------------------------------------------------------------------------------
 
-}
+} }
 
 # seleciona os produtos e exibe para montar a lista de venda
-$query4 = "SELECT p.*, n.natureza, e.quantidade, v.* FROM venda v
-			INNER JOIN produto p ON p.idProduto = v.idProduto			 
-				INNER JOIN natureza n ON n.idNatureza = p.idNatureza
+$query4 = "SELECT p.*, e.*, v.* FROM venda v
+			INNER JOIN produto p ON p.idProduto = v.idProduto			
 					INNER JOIN entrada_produto e ON e.idProduto = p.idProduto
 						WHERE v.codVenda='$codVenda'";
 $res4 = mysql_query($query4);
@@ -61,11 +62,11 @@ $carrinho .= "<td>&nbsp;</td>";
 $carrinho .= "</tr></thead><tbody>";
 while( $l4 = mysql_fetch_array($res4) ) {
 	$carrinho .= "<input type='hidden' name='produto[]' value='".$l4['idProduto']."' />";
-        $carrinho .= "<input type='hidden' name='nomeProduto[]' value='".$l4['natureza']." - ".$l4['descricao']."' />";
+        $carrinho .= "<input type='hidden' name='nomeProduto[]' value='".$l4['marca']."' />";
 	$carrinho .= "<input type='hidden' name='qtd[]' value='".$l4['qtd']."' />";
 	$carrinho .= "<tr align='center'>";
 	$carrinho .= "<td>".$l4['codBarra']."</td>";
-	$carrinho .= "<td>".$l4['natureza']." - ".$l4['descricao']."</td>";
+	$carrinho .= "<td>".$l4['marca']."</td>";
 	$carrinho .= "<td>".$l4['qtd']."</td>";
 	$carrinho .= "<td>R$ ".$l4['total']."<input type='hidden' name='total1[]' value='".$l4['total']."'></td>";
 	$carrinho .= "<td><a href='../function/cancelarItem.php?item=".$l4['idProduto']."&venda=".$codVenda."' border=0><img src='../imagens/layout/ico_del.png' /></a></td>";
@@ -82,3 +83,22 @@ $carrinho .= "<input type='hidden' name='total2' value='".$aPagar."' />";
 $carrinho .= "</tr></table>";
 print $carrinho;
 #-----------------------------------------------------------------------------------------------
+
+
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -5,28 +5,21 @@ session_start();
 extract($_POST);
 
 for($i = 0; $i < count($produto); $i++){
-	$query = "SELECT * FROM entrada_produto WHERE idProduto='".$produto[$i]."'";
+	$query = "SELECT * FROM estoque WHERE idProduto='".$produto[$i]."'";
 	$res = mysql_query($query);
 	$obj = mysql_fetch_array($res);
 
-	$sub = $obj['quantidade'] - $qtd[$i];
+	$sub = $obj['qtd'] - $qtd[$i];
 	
-	$query2 = "UPDATE entrada_produto SET quantidade='$sub' WHERE idProduto='".$produto[$i]."'";
+	$query2 = "UPDATE estoque SET qtd='$sub' WHERE idProduto='".$produto[$i]."'";
 	$res2 = mysql_query($query2);
 
 }
 
-if ($igreja == "0") {
-    $query3 = "INSERT INTO venda_igreja VALUES (null, 0, '".$_SESSION['codVenda']."')";
-} else {
-    $query3 = "INSERT INTO venda_igreja VALUES (null, '$igreja', '".$_SESSION['codVenda']."')";
-}
-$res3 = mysql_query($query3);
-
 $dia = date('d-m-Y_H-i');
 
 // Servidor de Aplicação
-//$caminho = "C:\wamp\www\pai\imp\venda\venda_$dia.txt";
+//$caminho = "C:\wamp\www\pai\imp\\venda\\venda_$dia.txt";
 
 // Servidor de Desenvolvimento
 $caminho = "/var/www/farma/imp/venda/venda_$dia.txt";
@@ -77,7 +70,7 @@ $imprimir .= "\n";
 $imprimir .= "\n";
 $imprimir .= "\n";
 $imprimir .= "\n";
-//print $imprimir;
+print $imprimir;
 
 $salva = fwrite($fp, $imprimir);
 
@@ -85,10 +78,11 @@ $salva = fwrite($fp, $imprimir);
 fclose($fp);
 
 // Salva o caminho do aqrquivo txt no DB
-mysql_query("UPDATE venda SET caminho='$caminho' WHERE codVenda='".$_SESSION['codVenda']."'");
+$caminho2 = "../imp/venda/venda_$dia.txt";
+mysql_query("UPDATE venda SET caminho='$caminho2' WHERE codVenda='".$_SESSION['codVenda']."'");
 
 // ENVIA O ARQUIVO PARA PORTA COM3
-exec("copy " . $caminho . " com3:");
+exec("copy " . $caminho . " com4:");
 
 unset($_SESSION['codVenda']);
 header("Location: ../main/venda.php");

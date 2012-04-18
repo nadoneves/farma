@@ -60,12 +60,11 @@
                 <?php } ?>
                 
                 <?php
-                    if( $_SESSION['usuario']['tipo'] == 5 ){
+                    if( $_SESSION['usuario']['tipo'] == 5 or $_SESSION['usuario']['tipo'] == 1 ){
                 ?>
                 
                 <li><a href="venda.php" class="main" style="color: #2dff00; font-weight:bold;">VENDER</a></li>
                 
-                <!--<li><a href="doacao.php" class="main" style="color: gold; font-weight:bold;">DOA&Ccedil;&Atilde;O</a></li>-->
                 <?php } ?>
                 
 		<li><a class="sair" href="../function/logout.php">SAIR</a></li>
