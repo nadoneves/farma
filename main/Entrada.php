@@ -49,7 +49,7 @@ if($_GET or !empty($_SESSION['entradaProduto']) ){
                                             <th>Item</th>
                                             <th>Qtd.</th>
                                             <th>R$ Unidade</th>
-                                            <th>R$ Venda</th>
+                                            <!--<th>R$ Venda</th>-->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -211,6 +211,7 @@ if ($alt=="Buscar"){
 </form>
 -->
 
+<script type="text/javascript" src="../js/jquery.maskMoney.js"></script>
 <script language="javascript" type="text/javascript">
     $(document).ready(function() {
         $('.tbl_listaProd thead').css('background','url(../imagens/layout/menu.png)');
@@ -220,12 +221,28 @@ if ($alt=="Buscar"){
         $('.tbl_listaProd tbody tr:even').css('background','#bbb');
         
         $('#add').click( function(){
+            inicio = 1;
+            fim = 100;
+            rand = parseInt(Math.random()*fim);
+            
             $('#tableItens').fadeIn(200);
-            $('#tableItens').append("<tr><td><input type='text' name='produto[]' value='' /></td><td><input type='text' name='qtd[]' value='' /></td><td><input type='text' name='precoUnidade[]' value='' /></td><td><input type='text' name='precoVenda[]' value='' /></td></tr>");
+            $('#tableItens').append("<tr>\n\
+                                        <td>\n\
+                                            <input type='text' name='produto[]' onclick='produto("+rand+")' id='produto"+rand+"' />\n\
+                                            <input type='hidden' name='idProduto[]' id='idproduto"+rand+"' />\n\
+                                        </td>\n\
+                                        <td><input type='text' name='qtd[]' /></td>\n\
+                                        <td><input type='text' name='precoUnidade[]' id='prUnit' /></td>\n\
+                                    </tr>");
+            $('#tableItens #prUnit').maskMoney({allowZero:false, allowNegative:true, defaultZero:false});
         });
         
         $("#dataNf").datepicker();
     });
+    
+    function produto(rand){
+        window.open('selItem.php?rand='+rand, 'Itens', 'width=800, height=600');
+    }
     
     function ver( id ){
        window.location='Entrada.php?acao=novo&idfornecedor='+id;
