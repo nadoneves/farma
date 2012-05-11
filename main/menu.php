@@ -60,7 +60,15 @@
                 <?php } ?>
                 
                 <?php
-                    if( $_SESSION['usuario']['tipo'] == 5 or $_SESSION['usuario']['tipo'] == 1 ){
+                    if( $_SESSION['usuario']['tipo'] == 2 or $_SESSION['usuario']['tipo'] == 1 ){
+                ?>
+                
+                <li><a href="venda.php" class="main" style="color: #2dff00; font-weight:bold;">VENDER</a></li>
+                
+                <?php } ?>
+                
+                <?php
+                    if( $_SESSION['usuario']['tipo'] == 5 ){
                 ?>
                 
                 <li><a href="venda.php" class="main" style="color: #2dff00; font-weight:bold;">VENDER</a></li>

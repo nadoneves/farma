@@ -6,7 +6,7 @@ $codVenda = $_GET['codVenda'];
 $qtdVenda = $_GET['qtd'];
 
 # Seleciona o produto através do Código de Barras
-$query = "SELECT p.*, e.precoVenda, es.qtd FROM produto p 
+$query = "SELECT p.*, e.precoUnidade, es.qtd FROM produto p 
 				INNER JOIN entrada_produto e ON e.idProduto = p.idProduto
                     INNER JOIN estoque es ON es.idProduto = p.idProduto
                         WHERE p.codBarra='$codBarras'";

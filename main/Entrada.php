@@ -8,7 +8,7 @@ include 'topo.php';
 
 
 
-if($_GET or !empty($_SESSION['entradaProduto']) ){
+if($_GET['acao'] or !empty($_SESSION['entradaProduto']) ){
     
     
     
@@ -24,12 +24,14 @@ if($_GET or !empty($_SESSION['entradaProduto']) ){
         $f = $fornecedor->pesqFornecedor();
 ?>
 <br /><br />
+    <form method="post" name="form" action="../function/cadEntrada.php">
         <table border="1">
             <tbody>
                 <tr>
                     <td>Fornecedor</td>
                     <td>
-                        <input type="text" name="fornecedo" value="<?=$f->nome?>" readonly="readonly" />
+                        <input type="text" name="fornecedor" value="<?=$f->nome?>" readonly="readonly" />
+                        <input type="hidden" name="idFornecedor" value="<?=$_SESSION['entradaProduto']['idfornecedor']?>" />
                     </td>
                 </tr>
                 <tr>
@@ -61,13 +63,13 @@ if($_GET or !empty($_SESSION['entradaProduto']) ){
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <input type='button' value='Cadastrar' />
+                        <input type='submit' value='Cadastrar' />
                         <input type='button' onclick='cancelar()' value='Cancelar' />
                     </td>
                 </tr>
             </tbody>
         </table>
-
+    </form>
 
 
 <?php 
@@ -258,4 +260,8 @@ if ($alt=="Buscar"){
     
     
 </script>	
-<?php include 'rodape.php'; ?>
+<?php
+include 'rodape.php'; 
+if( $_GET['msg'] )
+    echo "<script>alert('".$_GET['msg']."');</script>";
+?>

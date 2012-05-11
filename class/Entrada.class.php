@@ -4,31 +4,35 @@ class Entrada {
 
 	function __construct($param) {
 		$this->idProduto = $param['idProduto'];
-		$this->quantidade = $param['quantidade'];
+        $this->idFornecedor = $param['idFornecedor'];
+        $this->nf = $param['nNf'];
+        $this->dataNf = data_ymd($param['dataNf']);
+		$this->quantidade = $param['qtd'];
+        $this->precoUnidade = $param['precoUnidade'];
 		$this->quantidadeAtual = $param['quantidadeAtual'];
 	}
 	
-	public static function entradaProdutoMatriz($idProduto, $qtd) {
-		$query = "INSERT INTO entrada_produto VALUES (null,$idProduto,$qtd)";
-		$res = mysql_query($query);
-        self::histEntradaProduto($idProduto, $qtd);
-		return $res;
-	}
-
-	private function histEntradaProduto($idProduto, $qtd) {
-		$query = "INSERT INTO hist_entrada_produto VALUES (null,$idProduto,$qtd,null)";
-		$res = mysql_query($query);
-	}
-
-	public function entradaProduto() {
-		$qtdFinal = $this->quantidadeAtual + $this->quantidade;
-		$query = "UPDATE entrada_produto SET quantidade='$qtdFinal' WHERE idProduto='$this->idProduto'";
-		$hist = self::histEntradaProduto($idProduto, $qtd);
-
-		$res = mysql_query($query);
-
-		return $res;
-	}
+	public function nova( $idProduto,$idFornecedor,$nf,$dataNf,$quantidade,$precoUnidade){
+        $data = data_ymd($dataNf);
+        $query = "INSERT INTO entrada_produto VALUES (null,$idProduto,$idFornecedor,'$nf','$data',$quantidade,$precoUnidade)";
+        $res = mysql_query($query);
+        
+        if($res){
+            $resEstoque = Estoque::qtdEstoque($idProduto);
+            $e = mysql_fetch_array($resEstoque);
+            
+            $qtdEstoque = $e['qtd'] + $quantidade;
+            
+            Estoque::entrada($qtdEstoque, $idProduto);
+            
+            return $res;
+            
+        }else{
+            return false;
+        }
+        
+    }
+	
 
 }
 
