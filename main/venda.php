@@ -34,7 +34,7 @@ if ( empty($_SESSION['codVenda']) ){
 <hr />
 <br />
 
-<form method="post" action="../function/finalizarVenda.php">
+<form method="post" action="../function/finalizarVendaCaixa.php">
 <table width="603px">
         <tr>
             <td>

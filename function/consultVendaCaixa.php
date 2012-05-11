@@ -8,7 +8,7 @@ extract($_GET);
 # seleciona os produtos e exibe para montar a lista de venda
 $query4 = "SELECT p.*, v.* FROM venda v
 			INNER JOIN produto p ON p.idProduto = v.idProduto			
-						WHERE v.codVenda='$codVenda'";
+						WHERE v.codVenda='$codVenda' and v.finalizada=0";
 $res4 = mysql_query($query4);
 $carrinho = "<table width='600px' cellpadding=0 cellspacing=0 class='tbl_vendaD'>";
 $carrinho .= "<thead><tr>";
