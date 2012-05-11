@@ -4,6 +4,13 @@ include "../class/Call.class.php";
 session_start();
 extract($_POST);
 
+if( $tpPag == "1" )
+    $tpPagamento = "C.CREDITO";
+if( $tpPag == "2" )
+    $tpPagamento = "C.DEBITO";
+if( $tpPag == "3" )
+    $tpPagamento = "DINHEIRO";
+
 for($i = 0; $i < count($produto); $i++){
 	$query = "SELECT * FROM estoque WHERE idProduto='".$produto[$i]."'";
 	$res = mysql_query($query);
@@ -49,12 +56,17 @@ for($j = 0; $j < count($produto); $j++){
     $imprimir .= "\n".$qtd[$j]."x       ".$nomeProduto[$j]."      R$ ".$total1[$j];
 }
 $imprimir .= "\n                                          ------";
+$imprimir .= "\n                            Pago em $tpPagamento";
 $imprimir .= "\n                               Total: R$ $total2";
+if($tpPag == "3"){
+    $imprimir .= "\n                            Pago: R$ $valorPago";
+    $imprimir .= "\n                               Troco: R$ $troco";
+}
 $imprimir .= "\n------------------------------------------------";
 $imprimir .= "\n           'O Senhor e a Nossa Paz'";
 $imprimir .= "\n           Obrigado e Volte Sempre";
 $imprimir .= "\n------------------------------------------------";
-$imprimir .= "\n        Bazar v1.0 ".date('d/m/Y H:i');
+$imprimir .= "\n        Pharma v1.0 ".date('d/m/Y H:i');
 $imprimir .= "\n------------------------------------------------";
 
 // espa�o ap�s impress�o
