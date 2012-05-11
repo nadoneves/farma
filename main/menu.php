@@ -71,7 +71,7 @@
                     if( $_SESSION['usuario']['tipo'] == 5 ){
                 ?>
                 
-                <li><a href="venda.php" class="main" style="color: #2dff00; font-weight:bold;">VENDER</a></li>
+                <li><a href="vendaCaixa.php" class="main" style="color: #2dff00; font-weight:bold;">VENDER</a></li>
                 
                 <?php } ?>
                 

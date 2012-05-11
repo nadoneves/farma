@@ -80,6 +80,13 @@ class Produto {
 
 		return $res;
     }
+    
+    static public function precoProd( $id ){
+        $query = "SELECT round( sum(precoUnidade)/count(precounidade) ) AS precoVenda FROM entrada_produto WHERE idProduto=$id";
+        $res = mysql_query($query);
+		$p = mysql_fetch_array($res);
+        return $p['precoVenda'];
+    }
 	
 }
 
