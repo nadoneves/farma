@@ -24,7 +24,7 @@ if($_GET['acao'] or !empty($_SESSION['entradaProduto']) ){
         $f = $fornecedor->pesqFornecedor();
 ?>
 <br /><br />
-    <form method="post" name="form" action="../function/cadEntrada.php">
+    <form method="post" name="form" id="form" action="../function/cadEntrada.php">
         <table border="1">
             <tbody>
                 <tr>
@@ -36,7 +36,7 @@ if($_GET['acao'] or !empty($_SESSION['entradaProduto']) ){
                 </tr>
                 <tr>
                     <td>Nota Fiscal*</td>
-                    <td><input type="text" name="nNf" value="" /></td>
+                    <td><input type="text" name="nNf" id="nNf" value="" /></td>
                 </tr>
                 <tr>
                     <td>Data Nota Fiscal*</td>
@@ -63,7 +63,7 @@ if($_GET['acao'] or !empty($_SESSION['entradaProduto']) ){
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <input type='submit' value='Cadastrar' />
+                        <input type='button' id="cadastrar" value='Cadastrar' />
                         <input type='button' onclick='cancelar()' value='Cancelar' />
                     </td>
                 </tr>
@@ -230,16 +230,33 @@ if ($alt=="Buscar"){
             $('#tableItens').fadeIn(200);
             $('#tableItens').append("<tr>\n\
                                         <td>\n\
-                                            <input type='text' name='produto[]' onclick='produto("+rand+")' id='produto"+rand+"' />\n\
-                                            <input type='hidden' name='idProduto[]' id='idproduto"+rand+"' />\n\
+                                            <input type='text' name='produto[]' onclick='produto("+rand+")' id='produto"+rand+"' class='produto' />\n\
+                                            <input type='hidden' name='idProduto[]' id='idproduto"+rand+"' class='idproduto' />\n\
                                         </td>\n\
-                                        <td><input type='text' name='qtd[]' /></td>\n\
+                                        <td><input type='text' name='qtd[]' id='qtd' /></td>\n\
                                         <td><input type='text' name='precoUnidade[]' id='prUnit' /></td>\n\
                                     </tr>");
             $('#tableItens #prUnit').maskMoney({allowZero:false, allowNegative:true, defaultZero:false});
         });
         
         $("#dataNf").datepicker();
+        
+        $("#cadastrar").click(function(){
+            var nf = $("#nNf").val();
+            var data = $("#dataNf").val();
+            var produto = 0;
+            produto = $(".idproduto").val();
+            var qtd = 0; 
+            qtd = $(".idproduto").val();
+            
+            var pr = $("#prUnit").val();              
+            if (nf == '' || data == '' || produto == '' || qtd == null || pr == null) {
+                alert('Todos os campos sao Obrigatorios');
+            }else{
+                $('#form').submit();
+            }
+        });
+        
     });
     
     function produto(rand){
