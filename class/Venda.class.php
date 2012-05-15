@@ -20,7 +20,7 @@ class Venda {
 	}
         
 	public static function listarVendas(){
-		$query = "SELECT * FROM venda GROUP BY codVenda ORDER BY data DESC";
+		$query = "SELECT * FROM venda WHERE finalizada=1 GROUP BY codVenda ORDER BY data DESC";
 		$res = mysql_query($query);	
 
 		return $res;

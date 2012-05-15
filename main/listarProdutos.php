@@ -43,9 +43,8 @@ $produtos = Produto::listarProdutos();
 		<tr>
 			<td>C&oacute;digo</td>
 			<td>Produto</td>
-			<td>Unidade</td>
-                        <td>Pre&ccedil;o Unidade</td>
-                        <td>Pre&Ccedil;o Venda</td>
+            <td>Pre&ccedil;o</td>
+            <!--<td>Pre&Ccedil;o Venda</td>-->
 		</tr>
 	</thead>
 	<tbody>
@@ -53,10 +52,10 @@ $produtos = Produto::listarProdutos();
 while($row = mysql_fetch_array($produtos)) {
 	$table .= "<tr>";
 	$table .= " <td>".$row['codBarra']."</td>";
-	$table .= " <td>".converteM($row['natureza'],1)." - ".converteM($row['descricao'],1)."</td>";
-	$table .= " <td>".converteM($row['unidade'],1)."</td>";
+	$table .= " <td>".converteM($row['tipo'],1)." - ".converteM($row['marca'],1)."</td>";
+	//$table .= " <td>".converteM($row['unidade'],1)."</td>";
 	$table .= " <td>R$ ".$row['precoUnidade']."</td>";
-	$table .= " <td>R$ ".$row['precoVenda']."</td>";
+	//$table .= " <td>R$ ".$row['precoVenda']."</td>";
 	$table .= "</tr>";	
 }
 print $table;

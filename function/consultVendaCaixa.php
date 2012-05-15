@@ -8,8 +8,11 @@ extract($_GET);
 # seleciona os produtos e exibe para montar a lista de venda
 $query4 = "SELECT p.*, v.* FROM venda v
 			INNER JOIN produto p ON p.idProduto = v.idProduto			
-						WHERE v.codVenda='$codVenda' and v.finalizada=0";
+						WHERE v.codVenda='$codVenda' and v.finalizada is null";
 $res4 = mysql_query($query4);
+$nR = mysql_num_rows($res4);
+
+if( $nR > 0 ){
 $carrinho = "<table width='600px' cellpadding=0 cellspacing=0 class='tbl_vendaD'>";
 $carrinho .= "<thead><tr>";
 $carrinho .= "<td>C&oacute;digo</td>";
@@ -41,7 +44,9 @@ $carrinho .= "<input type='hidden' name='total2' id='total2' value='".$aPagar."'
 $carrinho .= "</tr></table>";
 print $carrinho;
 #-----------------------------------------------------------------------------------------------
-
+}else{
+    
+}
 
 ?>
 

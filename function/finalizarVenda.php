@@ -4,25 +4,13 @@ include "../class/Call.class.php";
 session_start();
 extract($_POST);
 
-for($i = 0; $i < count($produto); $i++){
-	$query = "SELECT * FROM estoque WHERE idProduto='".$produto[$i]."'";
-	$res = mysql_query($query);
-	$obj = mysql_fetch_array($res);
-
-	$sub = $obj['qtd'] - $qtd[$i];
-	
-	$query2 = "UPDATE estoque SET qtd='$sub' WHERE idProduto='".$produto[$i]."'";
-	$res2 = mysql_query($query2);
-
-}
-
 $dia = date('d-m-Y_H-i');
 
 // Servidor de Aplicação
 //$caminho = "C:\wamp\www\pai\imp\\venda\\venda_$dia.txt";
 
 // Servidor de Desenvolvimento
-$caminho = "/var/www/farma/imp/venda/venda_$dia.txt";
+$caminho = "/var/www/farma/imp/venda/balcao/venda_$dia.txt";
 
 // CRIA/ABRE O ARQUIVO IMPRIMIR.TXT E APAGA OS DADOS EXISTENTE
 $fp = fopen($caminho, "w+");
@@ -54,7 +42,7 @@ $imprimir .= "\n------------------------------------------------";
 $imprimir .= "\n           'O Senhor e a Nossa Paz'";
 $imprimir .= "\n           Obrigado e Volte Sempre";
 $imprimir .= "\n------------------------------------------------";
-$imprimir .= "\n        Bazar v1.0 ".date('d/m/Y H:i');
+$imprimir .= "\n        PHARMA v1.0 ".date('d/m/Y H:i');
 $imprimir .= "\n------------------------------------------------";
 
 // espa�o ap�s impress�o
@@ -78,14 +66,20 @@ $salva = fwrite($fp, $imprimir);
 fclose($fp);
 
 // Salva o caminho do aqrquivo txt no DB
-$caminho2 = "../imp/venda/venda_$dia.txt";
+$caminho2 = "../imp/venda/balcao/venda_$dia.txt";
 mysql_query("UPDATE venda SET caminho='$caminho2' WHERE codVenda='".$_SESSION['codVenda']."'");
 
 // ENVIA O ARQUIVO PARA PORTA COM3
-exec("copy " . $caminho . " com4:");
+//exec("copy " . $caminho . " com4:");
 
+echo "<script>
+        window.open('mostrarCupom.php?value=$caminho&venda=".$_SESSION['codVenda']."','Janela','width=300,height=600');
+        window.location='../main/venda.php'</script>";
+
+sleep(1);
 unset($_SESSION['codVenda']);
-header("Location: ../main/venda.php");
+
+//header("Location: ../main/venda.php");
 //session_destroy();
 ?>
 

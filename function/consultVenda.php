@@ -3,13 +3,16 @@ include "../class/Call.class.php";
 
 $codBarras = $_GET['codBarras'];
 $codVenda = $_GET['codVenda'];
-$qtdVenda = $_GET['qtd'];
+if($_GET['qtd'] == null)
+    $qtdVenda = 0;
+else
+    $qtdVenda = $_GET['qtd'];
 
 # Seleciona o produto através do Código de Barras
 $query = "SELECT p.*, e.precoUnidade, es.qtd FROM produto p 
 				INNER JOIN entrada_produto e ON e.idProduto = p.idProduto
                     INNER JOIN estoque es ON es.idProduto = p.idProduto
-                        WHERE p.codBarra='$codBarras'";
+                        WHERE p.codBarra='$codBarras' and es.qtd > $qtdVenda";
 
 $res = mysql_query($query);
 $l = mysql_fetch_array($res);
@@ -41,7 +44,7 @@ if( $l2 != 0 ){
 	# se não adiciona o novo produto
 	if(	$l['idProduto'] != "") {
 		//echo "upa";
-		$query4 = "INSERT INTO venda VALUES (null,'$codVenda','".$l['idProduto']."','".$qtdVenda."','".Produto::precoProd($id_produto) * $qtdVenda."',null,null)";
+		$query4 = "INSERT INTO venda VALUES (null,'$codVenda','".$l['idProduto']."','".$qtdVenda."','".Produto::precoProd($id_produto) * $qtdVenda."',null,null,null)";
 		$res4 = mysql_query($query4);
 	}
 }
@@ -50,7 +53,7 @@ if( $l2 != 0 ){
 } }
 
 # seleciona os produtos e exibe para montar a lista de venda
-$query4 = "SELECT p.*,  v.* FROM venda v
+$query4 = "SELECT p.*, v.* FROM venda v
 			INNER JOIN produto p ON p.idProduto = v.idProduto			
 						WHERE v.codVenda='$codVenda'";
 $res4 = mysql_query($query4);

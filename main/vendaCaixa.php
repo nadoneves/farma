@@ -5,6 +5,7 @@ include 'topo.php';
 session_start();
 
 ?>
+<form method="post" action="../function/finalizarVendaCaixa.php" id="form">
 <table class="tbl_venda">
 	<tr align="right">
 		<td>Venda N&#176; <input type="text" name="venda" id="venda" value="<?php echo $_GET['codVenda']; ?>" /></td>
@@ -14,7 +15,7 @@ session_start();
 <hr />
 <br />
 
-<form method="post" action="../function/finalizarVenda.php">
+
 <table width="603px" border="0">
         <tr>
             <td>
@@ -42,7 +43,7 @@ session_start();
     </tr>   
 	<tr align="right">
 		<td align="right">
-			<input type="button" name="" value="FINALIZAR VENDA" />
+			<input type="button" id="fimVenda" name="" value="FINALIZAR VENDA" />
 			<input type="button" name="" id="cancelarVenda" value="CANCELAR VENDA" />
 		</td>
 	</tr>
@@ -51,6 +52,7 @@ session_start();
 
 
 <script	src="../js/autocomplete.js" type="text/javascript"></script>
+<script type="text/javascript" src="../js/jquery.maskMoney.js"></script>
 <script>
     $(document).ready(function() {
         $("#venda").keyup(function() {
@@ -81,10 +83,16 @@ session_start();
             if ( tp == 3)
                 $('.pag').show(200);
             $('#valorPago').focus();
+            $('#valorPago').maskMoney({allowZero:false, allowNegative:true, defaultZero:false});
+            $('#troco').maskMoney({allowZero:false, allowNegative:true, defaultZero:false});
         });
         
         var vendaD =  $("#venda").val(); 
 		$("#carrinho").load('../function/consultVendaCaixa.php?&codVenda='+vendaD);
+        
+        $('#fimVenda').click( function(){
+            $('#form').submit();
+        });
 
     });
 	

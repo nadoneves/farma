@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tempo de Geração: Mai 11, 2012 as 03:29 PM
+-- Tempo de Geração: Mai 15, 2012 as 04:31 PM
 -- Versão do Servidor: 5.1.49
 -- Versão do PHP: 5.3.3-1ubuntu9.6
 
@@ -68,12 +68,12 @@ CREATE TABLE IF NOT EXISTS `estoque` (
 --
 
 INSERT INTO `estoque` (`idEstoque`, `idProduto`, `qtd`) VALUES
-(1, 1, 142),
+(1, 1, 132),
 (2, 2, 8),
 (3, 4, 0),
 (8, 21, 0),
-(10, 23, 17),
-(11, 24, 7);
+(10, 23, 15),
+(11, 24, 98);
 
 -- --------------------------------------------------------
 
@@ -163,6 +163,29 @@ INSERT INTO `natureza` (`idNatureza`, `natureza`, `codNatureza`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `pagamento`
+--
+
+CREATE TABLE IF NOT EXISTS `pagamento` (
+  `idPagamento` int(11) NOT NULL AUTO_INCREMENT,
+  `idVenda` int(11) NOT NULL,
+  `tipo` varchar(20) NOT NULL,
+  `total` decimal(8,2) NOT NULL,
+  `valorpago` decimal(8,2) NOT NULL,
+  `caminho` varchar(255) NOT NULL,
+  PRIMARY KEY (`idPagamento`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Extraindo dados da tabela `pagamento`
+--
+
+INSERT INTO `pagamento` (`idPagamento`, `idVenda`, `tipo`, `total`, `valorpago`, `caminho`) VALUES
+(1, 1, 'DINHEIRO', 5.00, 10.00, '../imp/venda/caixa/venda_15-05-2012_16-30.txt');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `produto`
 --
 
@@ -190,6 +213,25 @@ INSERT INTO `produto` (`idProduto`, `tipo`, `marca`, `descricao`, `codBarra`, `d
 (21, 'repelente', 'off', 'repelente contra insetos', 21474836478, '2012-04-19', '35445', '2012-04-30', '2012-04-18 10:37:34'),
 (23, 'TESTE', 'TESTE', 'TESTE', 555, '2012-05-09', '1234', '2012-05-22', '2012-05-11 11:26:27'),
 (24, 'TESTE', 'teste 2', 'sasasa', 23132, '2012-05-07', '1234', '2012-05-09', '2012-05-11 14:51:57');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tipo`
+--
+
+CREATE TABLE IF NOT EXISTS `tipo` (
+  `idpagamento` int(11) NOT NULL AUTO_INCREMENT,
+  `tipo` varchar(20) NOT NULL,
+  `valorpago` decimal(8,2) NOT NULL,
+  `total` decimal(8,2) NOT NULL,
+  PRIMARY KEY (`idpagamento`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='latin1_swedish_ci' AUTO_INCREMENT=1 ;
+
+--
+-- Extraindo dados da tabela `tipo`
+--
+
 
 -- --------------------------------------------------------
 
@@ -280,13 +322,11 @@ CREATE TABLE IF NOT EXISTS `venda` (
   `caminho` varchar(255) DEFAULT NULL,
   `finalizada` smallint(6) DEFAULT '0',
   PRIMARY KEY (`idVenda`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='latin1_swedish_ci' AUTO_INCREMENT=37 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='latin1_swedish_ci' AUTO_INCREMENT=2 ;
 
 --
 -- Extraindo dados da tabela `venda`
 --
 
 INSERT INTO `venda` (`idVenda`, `codVenda`, `idProduto`, `qtd`, `total`, `data`, `caminho`, `finalizada`) VALUES
-(31, 1, 1, 2, 10.00, '2012-05-11 14:51:28', '../imp/venda/venda_11-05-2012_14-52.txt', 0),
-(32, 1, 23, 1, 8.00, '2012-05-11 14:51:38', '../imp/venda/venda_11-05-2012_14-52.txt', 0),
-(33, 1, 24, 1, 1.00, '2012-05-11 14:52:29', '../imp/venda/venda_11-05-2012_14-52.txt', 0);
+(1, 1, 1, 1, 5.00, '2012-05-15 16:29:27', '../imp/venda/balcao/venda_15-05-2012_16-29.txt', 1);

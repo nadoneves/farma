@@ -32,19 +32,16 @@ class Produto {
 	}
 	
 	public static function listarProdutos() {
-		$query = "SELECT p.*, n.natureza FROM produto p 
-                            INNER JOIN natureza n ON n.idNatureza = p.idNatureza
-				ORDER BY n.natureza ASC";
+		$query = "SELECT p.*, e.* FROM produto p
+                    inner join entrada_produto e";
 		$res = mysql_query($query);	
 		
 		return $res;
 	}
 
 	public static function listarProdutosEstoque() {
-		$query = "SELECT p.*, n.natureza, e.quantidade FROM produto p 
-                            INNER JOIN natureza n ON n.idNatureza = p.idNatureza
-				INNER JOIN entrada_produto e ON e.idProduto = p.idProduto
-                                    ORDER BY n.natureza ASC";
+		$query = "SELECT p.* , e.* FROM produto p 
+                    INNER JOIN entrada_produto e ON e.idProduto = p.idProduto";
 		$res = mysql_query($query);	
 		
 		return $res;

@@ -29,7 +29,7 @@ $dia = date('d-m-Y_H-i');
 //$caminho = "C:\wamp\www\pai\imp\\venda\\venda_$dia.txt";
 
 // Servidor de Desenvolvimento
-$caminho = "/var/www/farma/imp/venda/venda_$dia.txt";
+$caminho = "/var/www/farma/imp/venda/caixa/venda_$dia.txt";
 
 // CRIA/ABRE O ARQUIVO IMPRIMIR.TXT E APAGA OS DADOS EXISTENTE
 $fp = fopen($caminho, "w+");
@@ -44,7 +44,7 @@ $imprimir .= "\nCEP: 21755-270 / Rio de janeiro - RJ";
 $imprimir .= "\njeova2011shalom@gmail.com";
 $imprimir .= "\n(21) 3253-9364 / (21) 7757-3140 / 106*171737";
 $imprimir .= "\n------------------------------------------------";
-$imprimir .= "\nVenda: ".$_SESSION['codVenda'];
+$imprimir .= "\nVenda: ".$venda;
 $imprimir .= "\n------------------------------------------------";
 $imprimir .= "\nQtd     Produto                            Total";
      
@@ -53,14 +53,16 @@ $imprimir .= "\nQtd     Produto                            Total";
     $obj4 = mysql_fetch_object($res4);
     
 for($j = 0; $j < count($produto); $j++){
-    $imprimir .= "\n".$qtd[$j]."x       ".$nomeProduto[$j]."      R$ ".$total1[$j];
+    $imprimir .= "\n".$qtd[$j]."x       ".$nomeProduto[$j]."                R$ ".$total1[$j];
 }
 $imprimir .= "\n                                          ------";
 $imprimir .= "\n                            Pago em $tpPagamento";
 $imprimir .= "\n                               Total: R$ $total2";
 if($tpPag == "3"){
-    $imprimir .= "\n                            Pago: R$ $valorPago";
+    $imprimir .= "\n                               Pago: R$ $valorPago";
     $imprimir .= "\n                               Troco: R$ $troco";
+}else{
+    $valorPago = $total2;
 }
 $imprimir .= "\n------------------------------------------------";
 $imprimir .= "\n           'O Senhor e a Nossa Paz'";
@@ -90,14 +92,18 @@ $salva = fwrite($fp, $imprimir);
 fclose($fp);
 
 // Salva o caminho do aqrquivo txt no DB
-$caminho2 = "../imp/venda/venda_$dia.txt";
-mysql_query("UPDATE venda SET caminho='$caminho2' WHERE codVenda='".$_SESSION['codVenda']."'");
+$caminho2 = "../imp/venda/caixa/venda_$dia.txt";
+mysql_query("INSERT INTO pagamento VALUES (null, $venda, '$tpPagamento', $total2, $valorPago, '$caminho2')") or die(mysql_error());
+mysql_query("UPDATE venda SET finalizada=1 WHERE codVenda=$venda") or die(mysql_error());
 
 // ENVIA O ARQUIVO PARA PORTA COM3
-exec("copy " . $caminho . " com4:");
+//exec("copy " . $caminho . " com4:");
 
-unset($_SESSION['codVenda']);
-header("Location: ../main/venda.php");
+//unset($_SESSION['codVenda']);
+echo "<script>window.open('mostrarCupom.php?value=$caminho','Janela','width=300,height=600');window.location='../main/vendaCaixa.php'</script>";
+
+sleep(1);
+//header("Location: ../main/vendaCaixa.php");
 //session_destroy();
 ?>
 

@@ -43,12 +43,13 @@
 			</ul>
 		</li>
 		
+        <!--
 		<li><a href="#" class="main">C&oacute;digo de barras</a>
 			<ul>
                             <li><a href="codBarraProduto.php">por PRODUTO</a></li>
 			</ul>
 		</li>
-                
+        -->        
                 <?php
                     if( $_SESSION['usuario']['tipo'] == 1 ){
                 ?>
